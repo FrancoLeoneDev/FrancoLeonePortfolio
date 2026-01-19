@@ -278,38 +278,39 @@ export function Hero() {
           ))}
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+      </motion.div>
+
+      {/* Scroll Indicator - outside parallax container */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+      >
+        <motion.a
+          href="#about"
+          className="flex flex-col items-center gap-2 text-slate-400 hover:text-primary-600 transition-colors"
+          whileHover={{ scale: 1.1 }}
         >
-          <motion.a
-            href="#about"
-            className="flex flex-col items-center gap-2 text-slate-400 hover:text-primary-600 transition-colors"
-            whileHover={{ scale: 1.1 }}
+          <motion.span
+            className="text-xs font-medium uppercase tracking-wider"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <motion.span
-              className="text-xs font-medium uppercase tracking-wider"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Scroll
-            </motion.span>
+            Scroll
+          </motion.span>
+          <motion.div
+            className="w-6 h-10 border-2 border-current rounded-full flex justify-center"
+            animate={{ borderColor: ["rgba(148,163,184,0.5)", "rgba(59,130,246,0.5)", "rgba(148,163,184,0.5)"] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
             <motion.div
-              className="w-6 h-10 border-2 border-current rounded-full flex justify-center"
-              animate={{ borderColor: ["rgba(148,163,184,0.5)", "rgba(59,130,246,0.5)", "rgba(148,163,184,0.5)"] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <motion.div
-                className="w-1.5 h-3 bg-current rounded-full mt-2"
-                animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </motion.div>
-          </motion.a>
-        </motion.div>
+              className="w-1.5 h-3 bg-current rounded-full mt-2"
+              animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        </motion.a>
       </motion.div>
     </section>
   );
