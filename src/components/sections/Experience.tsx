@@ -73,19 +73,8 @@ export function Experience() {
                   }}
                   whileHover={{ scale: 1.3 }}
                 >
-                  {/* Pulse animation */}
-                  <motion.div
-                    className="absolute inset-0 bg-primary-400 rounded-full"
-                    animate={{
-                      scale: [1, 2, 1],
-                      opacity: [0.5, 0, 0.5],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                  {/* Pulse animation - CSS for performance */}
+                  <div className="absolute inset-0 bg-primary-400 rounded-full animate-ping-slow" />
                 </motion.div>
 
                 {/* Content */}

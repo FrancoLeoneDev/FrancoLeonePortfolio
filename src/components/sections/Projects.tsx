@@ -126,19 +126,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 + 0.4 }}
           >
-            <motion.span
-              className="px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700"
-              animate={{
-                boxShadow: [
-                  "0 0 0 0 rgba(59, 130, 246, 0)",
-                  "0 0 0 4px rgba(59, 130, 246, 0.2)",
-                  "0 0 0 0 rgba(59, 130, 246, 0)",
-                ],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
+            <span
+              className="px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700 animate-pulse-ring-subtle"
             >
               Featured
-            </motion.span>
+            </span>
           </motion.div>
         )}
       </div>

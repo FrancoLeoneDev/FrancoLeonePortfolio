@@ -290,51 +290,20 @@ export function Contact() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Animated Decorative Elements */}
-              <motion.div
-                className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 90, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  rotate: [0, -90, 0],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              {/* Decorative Elements - CSS animations for performance */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 animate-float-slow" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2 animate-float-slower" />
 
-              {/* Floating particles */}
+              {/* Floating particles - CSS animations for performance */}
               {[...Array(4)].map((_, i) => (
-                <motion.div
+                <div
                   key={i}
-                  className="absolute w-2 h-2 bg-white/20 rounded-full"
+                  className="absolute w-2 h-2 bg-white/20 rounded-full animate-float-particle"
                   style={{
                     left: `${20 + i * 20}%`,
                     top: `${30 + (i % 2) * 40}%`,
-                  }}
-                  animate={{
-                    y: [0, -15, 0],
-                    opacity: [0.2, 0.5, 0.2],
-                    scale: [1, 1.3, 1],
-                  }}
-                  transition={{
-                    duration: 2 + i * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.3,
+                    animationDelay: `${i * 0.3}s`,
+                    animationDuration: `${2 + i * 0.5}s`,
                   }}
                 />
               ))}
@@ -401,23 +370,10 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.7 }}
                 >
-                  <motion.span
-                    className="w-2 h-2 bg-green-400 rounded-full"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [1, 0.5, 1],
-                      boxShadow: [
-                        "0 0 0 0 rgba(74, 222, 128, 0)",
-                        "0 0 0 6px rgba(74, 222, 128, 0.3)",
-                        "0 0 0 0 rgba(74, 222, 128, 0)",
-                      ],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                  </span>
                   <span className="text-sm text-primary-100">
                     Currently available for new projects
                   </span>

@@ -201,22 +201,8 @@ export function Skills() {
           transition={{ delay: 0.5 }}
         >
           <motion.div
-            className="flex items-center gap-2 px-6 py-3 bg-primary-50 rounded-full text-primary-600"
+            className="flex items-center gap-2 px-6 py-3 bg-primary-50 rounded-full text-primary-600 animate-pulse-ring"
             whileHover={{ scale: 1.05 }}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(59, 130, 246, 0)",
-                "0 0 0 10px rgba(59, 130, 246, 0.1)",
-                "0 0 0 0 rgba(59, 130, 246, 0)",
-              ],
-            }}
-            transition={{
-              boxShadow: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
           >
             <motion.svg
               className="w-5 h-5"

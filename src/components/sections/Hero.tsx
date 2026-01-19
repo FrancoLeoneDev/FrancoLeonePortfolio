@@ -25,12 +25,10 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         {/* Gradient Orbs with enhanced animations */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-200 to-primary-300 rounded-full blur-3xl opacity-40"
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-200 to-primary-300 rounded-full blur-3xl opacity-40 will-change-transform"
           animate={{
             x: [0, 50, 0],
             y: [0, 30, 0],
-            scale: [1, 1.1, 1],
-            rotate: [0, 10, 0],
           }}
           transition={{
             duration: 8,
@@ -39,12 +37,10 @@ export function Hero() {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-primary-300 to-primary-400 rounded-full blur-3xl opacity-30"
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-primary-300 to-primary-400 rounded-full blur-3xl opacity-30 will-change-transform"
           animate={{
             x: [0, -40, 0],
             y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-            rotate: [0, -15, 0],
           }}
           transition={{
             duration: 10,
@@ -53,11 +49,10 @@ export function Hero() {
           }}
         />
         <motion.div
-          className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-r from-primary-100 to-primary-200 rounded-full blur-3xl opacity-50"
+          className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-r from-primary-100 to-primary-200 rounded-full blur-3xl opacity-50 will-change-transform"
           animate={{
             x: [0, 30, 0],
             y: [0, -30, 0],
-            scale: [1, 1.15, 1],
           }}
           transition={{
             duration: 6,
@@ -136,22 +131,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <motion.span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium relative animate-pulse-ring"
             whileHover={{ scale: 1.05 }}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(59, 130, 246, 0)",
-                "0 0 0 8px rgba(59, 130, 246, 0.1)",
-                "0 0 0 0 rgba(59, 130, 246, 0)",
-              ],
-            }}
-            transition={{
-              boxShadow: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
           >
             <motion.span
               className="w-2 h-2 bg-primary-500 rounded-full"
