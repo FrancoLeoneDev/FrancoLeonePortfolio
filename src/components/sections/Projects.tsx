@@ -1,21 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { projects, Project } from "@/data/portfolio";
 
 type FilterType = "all" | "completed" | "in-progress";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const descriptionTooLong = project.description.length > 120;
 
   return (
     <motion.article
+      layoutId={project.id}
       layout
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8, y: 20 }}
       transition={{
+        layout: {
+          duration: 0.6,
+          ease: [0.16, 1, 0.3, 1],
+          type: "spring",
+          stiffness: 100,
+          damping: 20
+        },
         duration: 0.5,
         delay: index * 0.1,
         ease: [0.22, 1, 0.36, 1],
@@ -30,21 +41,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       {/* Image Container */}
       <div className="relative h-48 md:h-56 bg-gradient-to-br from-primary-100 to-primary-200 overflow-hidden">
-        {/* Placeholder gradient - replace with actual images */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary-500/80 to-primary-700/80 flex items-center justify-center"
-          animate={{
-            backgroundPosition: isHovered ? "100% 100%" : "0% 0%",
-          }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.span
-            className="text-white/80 text-lg font-medium"
-            animate={{ scale: isHovered ? 0.9 : 1, opacity: isHovered ? 0.6 : 1 }}
-          >
-            {project.title}
-          </motion.span>
-        </motion.div>
+        {/* Project Image */}
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
 
         {/* Hover overlay with buttons */}
         <motion.div
@@ -137,23 +141,79 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       {/* Content */}
       <motion.div
+        layout="position"
         className="p-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1 + 0.2 }}
+        transition={{
+          layout: {
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+            type: "spring",
+            stiffness: 100,
+            damping: 20
+          },
+          delay: index * 0.1 + 0.2
+        }}
       >
         <motion.h3
+          layout="position"
           className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors"
           whileHover={{ x: 5 }}
+          transition={{
+            layout: {
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1]
+            }
+          }}
         >
           {project.title}
         </motion.h3>
-        <p className="text-slate-600 text-sm mb-4 line-clamp-2">
-          {project.description}
-        </p>
+        <motion.div
+          layout
+          className="mb-4 overflow-hidden"
+          transition={{
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+            type: "spring",
+            stiffness: 100,
+            damping: 20
+          }}
+        >
+          <motion.p
+            layout="position"
+            className={`text-slate-600 text-sm ${!isExpanded && descriptionTooLong ? 'line-clamp-2' : ''}`}
+            initial={false}
+            animate={{
+              opacity: 1
+            }}
+            transition={{
+              duration: 0.5,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+          >
+            {project.description}
+          </motion.p>
+          {descriptionTooLong && (
+            <motion.button
+              layout="position"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-primary-600 hover:text-primary-700 text-xs font-medium mt-1 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+            >
+              {isExpanded ? 'Show less' : 'Read more'}
+            </motion.button>
+          )}
+        </motion.div>
 
         {/* Tags with stagger animation */}
         <motion.div
+          layout="position"
           className="flex flex-wrap gap-2"
           initial="hidden"
           animate="visible"
@@ -190,10 +250,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       {/* Bottom border animation on hover */}
       <motion.div
+        layout="position"
         className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-primary-600"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{
+          scaleX: { duration: 0.3 },
+          layout: {
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1]
+          }
+        }}
         style={{ originX: 0 }}
       />
     </motion.article>
@@ -275,13 +342,15 @@ export function Projects() {
         </motion.div>
 
         {/* Projects Grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <LayoutGroup>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} />
+              ))}
+            </AnimatePresence>
+          </div>
+        </LayoutGroup>
 
         {filteredProjects.length === 0 && (
           <motion.p

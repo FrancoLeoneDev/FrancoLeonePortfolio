@@ -69,26 +69,81 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // Add your projects here
   {
-    id: "project-1",
-    title: "Project Name",
+    id: "sagis",
+    title: "Sagis - Artisanal Bakery E-commerce",
     description:
-      "A brief description of what this project does and the technologies used.",
-    image: "/projects/placeholder.jpg",
-    tags: ["React", "TypeScript", "Node.js"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/yourusername/project",
+      "Full-stack e-commerce platform for an artisanal bakery featuring product catalog, shopping cart, Instagram feed integration, and WhatsApp ordering system. Built with modern web technologies and deployed on Vercel.",
+    image: "/projects/sagis.jpg",
+    tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Supabase"],
+    liveUrl: "https://sagis-sand.vercel.app/",
     status: "completed",
     featured: true,
   },
   {
-    id: "project-2",
-    title: "Game Project",
-    description: "An exciting game built with Unity showcasing gameplay mechanics and systems.",
-    image: "/projects/placeholder.jpg",
-    tags: ["Unity", "C#", "Game Development"],
+    id: "memora",
+    title: "Memora - Horror Game Demo",
+    description:
+      "90s-era horror game featuring a unique memory mechanic where players dive into photographs to solve puzzles and escape from a nightmare. Explores atmospheric environments including a mansion and hospital with interactive puzzles and horror events.",
+    image: "/projects/memora.jpg",
+    tags: ["Unity", "C#", "Game Development", "Horror"],
+    liveUrl: "https://memoraoficial.itch.io/memora",
     status: "in-progress",
+    featured: true,
+  },
+  {
+    id: "dantofema",
+    title: "Dantofema - Software Development Company",
+    description:
+      "Software development company website showcasing custom development services, consulting, and modernization solutions. Features service portfolio, client showcase, and contact system built with modern web technologies.",
+    image: "/projects/placeholder.jpg",
+    tags: ["PHP", "Laravel", "MySQL", "JavaScript", "Vue.js"],
+    liveUrl: "https://dantofema.ar",
+    status: "completed",
+    featured: true,
+  },
+  {
+    id: "incasas",
+    title: "Incasas - Real Estate Platform",
+    description:
+      "Full-featured real estate platform for property listings, sales, and rentals across Argentina. Includes advanced property search, expert valuations, personalized property matching services, and comprehensive property management tools.",
+    image: "/projects/placeholder.jpg",
+    tags: ["Laravel", "PHP", "MySQL", "JavaScript"],
+    liveUrl: "https://incasas.com.ar",
+    status: "completed",
+    featured: true,
+  },
+  {
+    id: "mogotes",
+    title: "Mogotes - Backend as a Service",
+    description:
+      "Backend as a Service platform providing API-first solutions for startups. Offers transactional email, push notifications, cloud storage, payment processing, authentication/SSO, and feature flags as fully managed services.",
+    image: "/projects/placeholder.jpg",
+    tags: ["API", "SaaS", "JavaScript", "Node.js"],
+    liveUrl: "https://mogotes.ar",
+    status: "completed",
+    featured: true,
+  },
+  {
+    id: "fiplatina",
+    title: "FIP Latina Press - Journalism Portal",
+    description:
+      "News and information portal for the International Federation of Journalists in Latin America. Features journalism news, union updates, campaigns, and syndicated content with a focus on press freedom and journalists' rights.",
+    image: "/projects/placeholder.jpg",
+    tags: ["Laravel", "PHP", "JavaScript", "CMS"],
+    liveUrl: "https://fiplatina.press",
+    status: "completed",
+    featured: true,
+  },
+  {
+    id: "andes",
+    title: "Andes - Artisanal Bakery E-commerce",
+    description:
+      "E-commerce platform for artisanal baked goods including brownies, cookies, and traditional pastries. Features product catalog, shopping cart, coordinated delivery system, and personalized customer service.",
+    image: "/projects/placeholder.jpg",
+    tags: ["Laravel", "PHP", "JavaScript", "E-commerce"],
+    liveUrl: "https://andes.dantofema.ar",
+    status: "completed",
     featured: true,
   },
   // Add more projects as needed
