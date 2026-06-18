@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { personalInfo, aboutText } from "@/data/portfolio";
 import { SlideIn, FadeUp, DrawLine } from "@/components/ui/AnimatedSection";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export function About() {
+  const { t, pick } = useLanguage();
   return (
     <section id="about" className="py-24 md:py-32 bg-slate-50/50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
@@ -23,7 +25,7 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            About Me
+            {t.about.heading}
           </motion.h2>
           <DrawLine
             className="flex-1 h-px bg-gradient-to-r from-primary-300 to-transparent"
@@ -80,7 +82,7 @@ export function About() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.8 }}
                   >
-                    Your photo here
+                    {t.about.photo}
                   </motion.p>
                 </div>
 
@@ -135,7 +137,7 @@ export function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                {aboutText.intro}
+                {pick(aboutText.intro)}
               </motion.p>
 
               <div className="space-y-4">
@@ -148,7 +150,7 @@ export function About() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 + index * 0.15, duration: 0.5 }}
                   >
-                    {paragraph}
+                    {pick(paragraph)}
                   </motion.p>
                 ))}
               </div>
@@ -171,9 +173,9 @@ export function About() {
                 }}
               >
                 {[
-                  { label: "Web Projects", value: "10+" },
-                  { label: "Game Projects", value: "5+" },
-                  { label: "Technologies", value: "15+" },
+                  { label: t.about.statWeb, value: "10+" },
+                  { label: t.about.statGames, value: "5+" },
+                  { label: t.about.statTech, value: "15+" },
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}

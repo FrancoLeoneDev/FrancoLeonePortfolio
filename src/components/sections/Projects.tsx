@@ -3,14 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { projects, Project } from "@/data/portfolio";
+import { projects, personalInfo, Project } from "@/data/portfolio";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 type FilterType = "all" | "completed" | "in-progress";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { t, pick } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const descriptionTooLong = project.description.length > 120;
+  const description = pick(project.description);
+  const descriptionTooLong = description.length > 120;
 
   return (
     <motion.article
@@ -118,7 +121,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             }`}
             whileHover={{ scale: 1.1 }}
           >
-            {project.status === "completed" ? "Completed" : "In Progress"}
+            {project.status === "completed"
+              ? t.projects.statusCompleted
+              : t.projects.statusInProgress}
           </motion.span>
         </motion.div>
 
@@ -133,7 +138,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <span
               className="px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700 animate-pulse-ring-subtle"
             >
-              Featured
+              {t.projects.featured}
             </span>
           </motion.div>
         )}
@@ -192,7 +197,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               ease: [0.16, 1, 0.3, 1]
             }}
           >
-            {project.description}
+            {description}
           </motion.p>
           {descriptionTooLong && (
             <motion.button
@@ -206,7 +211,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 ease: [0.16, 1, 0.3, 1]
               }}
             >
-              {isExpanded ? 'Show less' : 'Read more'}
+              {isExpanded ? t.projects.showLess : t.projects.readMore}
             </motion.button>
           )}
         </motion.div>
@@ -268,6 +273,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<FilterType>("all");
 
   const filteredProjects = projects.filter((project) => {
@@ -276,9 +282,9 @@ export function Projects() {
   });
 
   const filters: { label: string; value: FilterType }[] = [
-    { label: "All Projects", value: "all" },
-    { label: "Completed", value: "completed" },
-    { label: "In Progress", value: "in-progress" },
+    { label: t.projects.filterAll, value: "all" },
+    { label: t.projects.filterCompleted, value: "completed" },
+    { label: t.projects.filterInProgress, value: "in-progress" },
   ];
 
   return (
@@ -299,7 +305,7 @@ export function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Featured Projects
+            {t.projects.heading}
           </motion.h2>
           <motion.p
             className="text-slate-600 max-w-2xl mx-auto"
@@ -308,8 +314,7 @@ export function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            A selection of my web and game development projects, showcasing
-            different technologies and approaches.
+            {t.projects.subtitle}
           </motion.p>
         </motion.div>
 
@@ -358,7 +363,7 @@ export function Projects() {
             animate={{ opacity: 1 }}
             className="text-center text-slate-500 mt-12"
           >
-            No projects found with the selected filter.
+            {t.projects.empty}
           </motion.p>
         )}
 
@@ -371,13 +376,13 @@ export function Projects() {
           transition={{ delay: 0.5 }}
         >
           <motion.a
-            href={`https://github.com/yourusername`}
+            href={personalInfo.social.github}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium"
             whileHover={{ x: 5 }}
           >
-            View more on GitHub
+            {t.projects.viewMore}
             <motion.svg
               className="w-4 h-4"
               fill="none"

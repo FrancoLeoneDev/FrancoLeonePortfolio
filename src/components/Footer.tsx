@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolio";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,7 +24,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-slate-500 text-sm">
-            &copy; {currentYear} {personalInfo.name}. All rights reserved.
+            &copy; {currentYear} {personalInfo.name}. {t.footer.rights}
           </p>
 
           {/* Back to top */}
@@ -31,7 +33,7 @@ export function Footer() {
             className="flex items-center gap-2 text-slate-500 hover:text-primary-600 text-sm transition-colors"
             whileHover={{ y: -2 }}
           >
-            Back to top
+            {t.footer.backToTop}
             <svg
               className="w-4 h-4"
               fill="none"

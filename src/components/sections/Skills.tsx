@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { skills, skillCategories, Skill } from "@/data/portfolio";
 import { TechIcons } from "@/components/icons/TechIcons";
 import { DrawLine } from "@/components/ui/AnimatedSection";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const categoryColors = {
   frontend: "from-blue-500 to-cyan-500",
@@ -87,6 +88,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
 }
 
 export function Skills() {
+  const { t } = useLanguage();
   const categories = Object.keys(skillCategories) as Array<
     keyof typeof skillCategories
   >;
@@ -109,7 +111,7 @@ export function Skills() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Skills & Technologies
+            {t.skills.heading}
           </motion.h2>
           <motion.p
             className="text-slate-600 max-w-2xl mx-auto"
@@ -118,8 +120,7 @@ export function Skills() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            A comprehensive toolkit spanning web development, game development,
-            and modern DevOps practices.
+            {t.skills.subtitle}
           </motion.p>
         </motion.div>
 
@@ -154,7 +155,7 @@ export function Skills() {
                     style={{ originY: 0 }}
                   />
                   <h3 className="text-xl font-semibold text-slate-800">
-                    {skillCategories[category]}
+                    {t.skillCategories[category]}
                   </h3>
                   <DrawLine
                     className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent"
@@ -220,7 +221,7 @@ export function Skills() {
               />
             </motion.svg>
             <span className="text-sm font-medium">
-              Always learning new technologies
+              {t.skills.learning}
             </span>
           </motion.div>
         </motion.div>

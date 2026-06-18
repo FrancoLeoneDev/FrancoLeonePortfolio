@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolio";
 import { DrawLine } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const socialLinks = [
   {
@@ -49,6 +50,7 @@ const contactItemVariants = {
 };
 
 export function Contact() {
+  const { t } = useLanguage();
   return (
     <section id="contact" className="py-24 md:py-32 bg-slate-50/50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
@@ -67,7 +69,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Get In Touch
+            {t.contact.heading}
           </motion.h2>
           <motion.p
             className="text-slate-600 max-w-2xl mx-auto"
@@ -76,8 +78,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            I&apos;m always open to discussing new projects, creative ideas, or
-            opportunities to be part of your vision.
+            {t.contact.subtitle}
           </motion.p>
           <DrawLine
             className="w-24 h-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full mx-auto mt-6"
@@ -107,7 +108,7 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                 >
-                  Let&apos;s work together
+                  {t.contact.workTogether}
                 </motion.h3>
                 <motion.p
                   className="text-slate-600 leading-relaxed"
@@ -116,9 +117,7 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  Whether you have a project in mind, want to collaborate on
-                  something cool, or just want to say hi, I&apos;d love to hear from
-                  you. Feel free to reach out through any of the channels below.
+                  {t.contact.workTogetherBody}
                 </motion.p>
               </motion.div>
 
@@ -154,7 +153,7 @@ export function Contact() {
                     </svg>
                   </motion.div>
                   <div>
-                    <p className="text-sm text-slate-500">Email</p>
+                    <p className="text-sm text-slate-500">{t.contact.email}</p>
                     <p className="text-slate-900 font-medium">
                       {personalInfo.email}
                     </p>
@@ -212,7 +211,7 @@ export function Contact() {
                     </svg>
                   </motion.div>
                   <div>
-                    <p className="text-sm text-slate-500">Location</p>
+                    <p className="text-sm text-slate-500">{t.contact.location}</p>
                     <p className="text-slate-900 font-medium">
                       {personalInfo.location}
                     </p>
@@ -234,7 +233,7 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.6 }}
                 >
-                  Find me on
+                  {t.contact.findMe}
                 </motion.p>
                 <motion.div
                   className="flex gap-3"
@@ -316,7 +315,7 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  Ready to start a project?
+                  {t.contact.ready}
                 </motion.h3>
                 <motion.p
                   className="text-primary-100 mb-8 leading-relaxed"
@@ -325,8 +324,7 @@ export function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
                 >
-                  I&apos;m available for freelance work and exciting opportunities.
-                  Let&apos;s create something amazing together.
+                  {t.contact.readyBody}
                 </motion.p>
 
                 <motion.div
@@ -343,7 +341,7 @@ export function Contact() {
                     size="lg"
                     className="w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50"
                   >
-                    Send me an email
+                    {t.contact.sendEmail}
                     <motion.svg
                       className="ml-2 w-5 h-5"
                       fill="none"
@@ -375,7 +373,7 @@ export function Contact() {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
                   </span>
                   <span className="text-sm text-primary-100">
-                    Currently available for new projects
+                    {t.contact.available}
                   </span>
                 </motion.div>
               </div>

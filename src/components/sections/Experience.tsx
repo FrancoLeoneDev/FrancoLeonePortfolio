@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { experiences } from "@/data/portfolio";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export function Experience() {
+  const { t, pick } = useLanguage();
   return (
     <section id="experience" className="py-24 md:py-32 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6">
@@ -22,7 +24,7 @@ export function Experience() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Experience
+            {t.experience.heading}
           </motion.h2>
           <motion.p
             className="text-slate-600 max-w-2xl mx-auto"
@@ -31,7 +33,7 @@ export function Experience() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            My professional journey and the roles that have shaped my career.
+            {t.experience.subtitle}
           </motion.p>
         </motion.div>
 
@@ -102,7 +104,7 @@ export function Experience() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.2 + 0.4 }}
                     >
-                      {exp.period}
+                      {pick(exp.period)}
                     </motion.span>
 
                     <motion.h3
@@ -112,7 +114,7 @@ export function Experience() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.2 + 0.5 }}
                     >
-                      {exp.role}
+                      {pick(exp.role)}
                     </motion.h3>
 
                     <motion.p
@@ -153,7 +155,7 @@ export function Experience() {
                             visible: { opacity: 1, x: 0 },
                           }}
                         >
-                          {item}
+                          {pick(item)}
                         </motion.li>
                       ))}
                     </motion.ul>
@@ -247,7 +249,7 @@ export function Experience() {
               </svg>
             </motion.div>
             <p className="text-slate-600">
-              Experience details coming soon...
+              {t.experience.comingSoon}
             </p>
           </motion.div>
         )}

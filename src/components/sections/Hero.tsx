@@ -4,8 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { personalInfo } from "@/data/portfolio";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export function Hero() {
+  const { t, pick } = useLanguage();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -146,7 +148,7 @@ export function Hero() {
                 ease: "easeInOut",
               }}
             />
-            Available for opportunities
+            {t.hero.badge}
           </motion.span>
         </motion.div>
 
@@ -163,7 +165,7 @@ export function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Hi, I&apos;m{" "}
+            {t.hero.greeting}{" "}
           </motion.span>
           <span className="relative inline">
             <motion.span
@@ -200,7 +202,7 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
-            {personalInfo.title}
+            {pick(personalInfo.title)}
           </motion.span>
         </motion.p>
 
@@ -211,7 +213,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 0.9 }}
         >
-          {personalInfo.subtitle}
+          {pick(personalInfo.subtitle)}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -226,7 +228,7 @@ export function Hero() {
             whileTap={{ scale: 0.98 }}
           >
             <Button href="#projects" size="lg">
-              View My Work
+              {t.hero.viewWork}
               <motion.svg
                 className="ml-2 w-5 h-5"
                 fill="none"
@@ -249,7 +251,7 @@ export function Hero() {
             whileTap={{ scale: 0.98 }}
           >
             <Button href="#contact" variant="outline" size="lg">
-              Get In Touch
+              {t.hero.getInTouch}
             </Button>
           </motion.div>
         </motion.div>
@@ -297,7 +299,7 @@ export function Hero() {
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            Scroll
+            {t.hero.scroll}
           </motion.span>
           <motion.div
             className="w-6 h-10 border-2 border-current rounded-full flex justify-center"
