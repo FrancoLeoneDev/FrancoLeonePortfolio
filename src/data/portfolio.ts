@@ -70,6 +70,17 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "papelera-bahia",
+    title: "Papelera Bahía",
+    description:
+      "Production e-commerce for a CABA-based wholesale supplier of disposable food-service and packaging products. A Next.js + Supabase storefront with catalog search, category and material filters, real-time stock, a persistent cart, and a WhatsApp checkout that builds each order server-side with a verified total.",
+    image: "/projects/papelera-bahia.jpg",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "E-commerce"],
+    liveUrl: "https://www.papelerabahia.com.ar",
+    status: "completed",
+    featured: true,
+  },
+  {
     id: "sagis",
     title: "Sagis - Artisanal Bakery E-commerce",
     description:
