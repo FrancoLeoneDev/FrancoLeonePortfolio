@@ -88,6 +88,19 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "cookizza",
+    title: "Cookizza",
+    description: {
+      en: "Production e-commerce for Cookizza, a family-run artisanal cookie shop in Floresta, CABA. A Next.js + Supabase storefront with a build-your-own \"Cookizza\" configurator (base, toppings and sauces chosen slice by slice), a cookie catalog with single cookies and mixed boxes, a persistent cart, an events section, an Instagram feed, and a WhatsApp checkout offering delivery across CABA or pickup in Floresta — plus an admin panel for managing the catalog.",
+      es: "E-commerce en producción para Cookizza, un emprendimiento familiar de cookies artesanales en Floresta, CABA. Storefront en Next.js + Supabase con un configurador \"armá tu Cookizza\" (base, toppings y salsas elegidos porción por porción), catálogo de cookies con unidades y cajas surtidas, carrito persistente, sección de eventos, feed de Instagram y checkout por WhatsApp con envíos en CABA o retiro en Floresta, además de un panel de administración para gestionar el catálogo.",
+    },
+    image: "/projects/cookizza.jpg",
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "E-commerce"],
+    liveUrl: "https://www.cookizza.com.ar",
+    status: "completed",
+    featured: true,
+  },
+  {
     id: "papelera-bahia",
     title: "Papelera Bahía",
     description: {
