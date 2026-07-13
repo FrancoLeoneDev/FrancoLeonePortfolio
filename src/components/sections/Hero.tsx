@@ -227,7 +227,7 @@ export function Hero() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button href="#projects" size="lg">
+            <Button href="#games" size="lg">
               {t.hero.viewWork}
               <motion.svg
                 className="ml-2 w-5 h-5"
