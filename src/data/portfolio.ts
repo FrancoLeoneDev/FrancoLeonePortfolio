@@ -127,19 +127,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "memora",
-    title: "Memora - Horror Game Demo",
-    description: {
-      en: "90s-era horror game featuring a unique memory mechanic where players dive into photographs to solve puzzles and escape from a nightmare. Explores atmospheric environments including a mansion and hospital with interactive puzzles and horror events.",
-      es: "Juego de terror ambientado en los años 90 con una mecánica única de memoria donde el jugador se sumerge en fotografías para resolver puzzles y escapar de una pesadilla. Explora entornos atmosféricos como una mansión y un hospital, con puzzles interactivos y eventos de terror.",
-    },
-    image: "/projects/memora.jpg",
-    tags: ["Unity", "C#", "Game Development", "Horror"],
-    liveUrl: "https://memoraoficial.itch.io/memora",
-    status: "in-progress",
-    featured: true,
-  },
-  {
     id: "dantofema",
     title: "Dantofema - Software Development Company",
     description: {
@@ -203,6 +190,61 @@ export const projects: Project[] = [
     liveUrl: "https://andes.dantofema.ar",
     status: "completed",
     featured: true,
+  },
+];
+
+// The Unity project shown as the "Featured Game" in the Game Dev section.
+export const featuredGame: Project = {
+  id: "memora",
+  title: "Memora - Horror Game Demo",
+  description: {
+    en: "90s-era horror game featuring a unique memory mechanic where players dive into photographs to solve puzzles and escape from a nightmare. Explores atmospheric environments including a mansion and hospital with interactive puzzles and horror events.",
+    es: "Juego de terror ambientado en los años 90 con una mecánica única de memoria donde el jugador se sumerge en fotografías para resolver puzzles y escapar de una pesadilla. Explora entornos atmosféricos como una mansión y un hospital, con puzzles interactivos y eventos de terror.",
+  },
+  image: "/projects/memora.jpg",
+  tags: ["Unity", "C#", "Game Development", "Horror"],
+  liveUrl: "https://memoraoficial.itch.io/memora",
+  status: "in-progress",
+  featured: true,
+};
+
+// Individual Unreal Engine (C++) gameplay systems. Each maps to a LinkedIn write-up.
+// To add a system: append here and drop <id>.mp4 / <id>.jpg into public/systems/.
+export interface GameSystem {
+  id: string;
+  title: string;
+  description: Localized;
+  poster: string; // /systems/<id>.jpg — shown as video poster and as fallback when no video
+  video?: string; // /systems/<id>.mp4 — optional inline clip
+  tags: string[];
+  linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
+  engine: "unreal";
+}
+
+export const gameSystems: GameSystem[] = [
+  {
+    id: "grid-inventory",
+    title: "Grid Inventory System",
+    description: {
+      en: "A Tetris-style grid inventory built in Unreal Engine with C++: items occupy multiple cells with drag-and-drop placement, rotation, and stacking, backed by fast slot lookup and collision checks.",
+      es: "Un inventario en grilla estilo Tetris hecho en Unreal Engine con C++: los ítems ocupan múltiples celdas con colocación por drag-and-drop, rotación y apilado, con búsqueda rápida de slots y chequeo de colisiones.",
+    },
+    poster: "/projects/placeholder.jpg",
+    tags: ["Unreal Engine", "C++", "Gameplay"],
+    linkedinUrl: "",
+    engine: "unreal",
+  },
+  {
+    id: "object-inspection",
+    title: "Object Inspection System",
+    description: {
+      en: "A first-person object inspection system in Unreal Engine with C++: pick up and rotate props in 3D to examine them, with smooth camera focus and highlight-on-hover.",
+      es: "Un sistema de inspección de objetos en primera persona en Unreal Engine con C++: agarrá y rotá props en 3D para examinarlos, con enfoque de cámara suave y resaltado al pasar el mouse.",
+    },
+    poster: "/projects/placeholder.jpg",
+    tags: ["Unreal Engine", "C++", "Gameplay"],
+    linkedinUrl: "",
+    engine: "unreal",
   },
 ];
 
