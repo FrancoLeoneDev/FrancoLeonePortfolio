@@ -241,9 +241,11 @@ export const gameSystems: GameSystem[] = [
       en: "A first-person object inspection system in Unreal Engine with C++: pick up and rotate props in 3D to examine them, with smooth camera focus and highlight-on-hover.",
       es: "Un sistema de inspección de objetos en primera persona en Unreal Engine con C++: agarrá y rotá props en 3D para examinarlos, con enfoque de cámara suave y resaltado al pasar el mouse.",
     },
-    poster: "/projects/placeholder.jpg",
-    tags: ["Unreal Engine", "C++", "Gameplay"],
-    linkedinUrl: "",
+    poster: "/systems/object-inspection.jpg",
+    video: "/systems/object-inspection.mp4",
+    tags: ["Unreal Engine", "C++", "UE5", "Gameplay"],
+    linkedinUrl:
+      "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-activity-7453919156778725376-Z6mx",
     engine: "unreal",
   },
 ];
