@@ -229,9 +229,11 @@ export const gameSystems: GameSystem[] = [
       en: "A Tetris-style grid inventory built in Unreal Engine with C++: items occupy multiple cells with drag-and-drop placement, rotation, and stacking, backed by fast slot lookup and collision checks.",
       es: "Un inventario en grilla estilo Tetris hecho en Unreal Engine con C++: los ítems ocupan múltiples celdas con colocación por drag-and-drop, rotación y apilado, con búsqueda rápida de slots y chequeo de colisiones.",
     },
-    poster: "/projects/placeholder.jpg",
-    tags: ["Unreal Engine", "C++", "Gameplay"],
-    linkedinUrl: "",
+    poster: "/systems/grid-inventory.jpg",
+    video: "/systems/grid-inventory.mp4",
+    tags: ["Unreal Engine", "C++", "UE5", "Gameplay"],
+    linkedinUrl:
+      "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-ugcPost-7482871303042150401-wwiF",
     engine: "unreal",
   },
   {
