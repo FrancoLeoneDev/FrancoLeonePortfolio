@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { personalInfo, aboutText } from "@/data/portfolio";
 import { SlideIn, FadeUp, DrawLine } from "@/components/ui/AnimatedSection";
@@ -53,75 +54,25 @@ export function About() {
                 transition={{ delay: 0.4, duration: 0.6 }}
               />
 
-              {/* Profile placeholder with animations */}
+              {/* Portrait. The source is a 640x640 square from WhatsApp, so it
+                  fills this square slot exactly; object-top keeps the crop on
+                  the face. A higher-resolution original drops in with no other
+                  change. */}
               <motion.div
-                className="relative bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl aspect-square flex items-center justify-center overflow-hidden"
+                className="relative rounded-2xl aspect-square overflow-hidden bg-slate-100"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="text-center text-white p-8">
-                  <motion.div
-                    className="text-6xl md:text-7xl font-bold mb-2"
-                    initial={{ scale: 0, rotate: -180 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", delay: 0.5, duration: 0.8 }}
-                  >
-                    {personalInfo.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </motion.div>
-                  <motion.p
-                    className="text-primary-200 text-sm"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8 }}
-                  >
-                    {t.about.photo}
-                  </motion.p>
-                </div>
-
-                {/* Floating elements with idle animations */}
-                <motion.div
-                  className="absolute top-4 right-4 w-12 h-12 bg-white/20 rounded-lg backdrop-blur-sm"
-                  animate={{
-                    rotate: [0, 10, -10, 0],
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="absolute bottom-4 left-4 w-8 h-8 bg-white/20 rounded-full backdrop-blur-sm"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    x: [0, 5, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="absolute top-1/2 left-4 w-6 h-6 bg-white/10 rounded-full"
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
+                <Image
+                  src="/franco.jpg"
+                  alt={personalInfo.name}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  priority
                 />
               </motion.div>
             </div>
@@ -173,8 +124,8 @@ export function About() {
                 }}
               >
                 {[
-                  { label: t.about.statWeb, value: "10+" },
                   { label: t.about.statGames, value: "5+" },
+                  { label: t.about.statWeb, value: "10+" },
                   { label: t.about.statTech, value: "15+" },
                 ].map((stat, index) => (
                   <motion.div

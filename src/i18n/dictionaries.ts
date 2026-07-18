@@ -22,7 +22,6 @@ const en = {
   },
   about: {
     heading: "About Me",
-    photo: "Your photo here",
     statWeb: "Web Projects",
     statGames: "Game Projects",
     statTech: "Technologies",
@@ -30,13 +29,13 @@ const en = {
   skills: {
     heading: "Skills & Technologies",
     subtitle:
-      "A comprehensive toolkit spanning web development, game development, and modern DevOps practices.",
+      "A comprehensive toolkit spanning game development, web development, and modern DevOps practices.",
     learning: "Always learning new technologies",
   },
   skillCategories: {
+    gamedev: "Game Development",
     frontend: "Frontend Development",
     backend: "Backend Development",
-    gamedev: "Game Development",
     tools: "Tools & DevOps",
   },
   web: {
@@ -109,7 +108,6 @@ const es: Dictionary = {
   },
   about: {
     heading: "Sobre mí",
-    photo: "Tu foto acá",
     statWeb: "Proyectos web",
     statGames: "Proyectos de juegos",
     statTech: "Tecnologías",
@@ -117,13 +115,13 @@ const es: Dictionary = {
   skills: {
     heading: "Habilidades y Tecnologías",
     subtitle:
-      "Un set completo de herramientas que abarca desarrollo web, desarrollo de videojuegos y prácticas modernas de DevOps.",
+      "Un set completo de herramientas que abarca desarrollo de videojuegos, desarrollo web y prácticas modernas de DevOps.",
     learning: "Siempre aprendiendo nuevas tecnologías",
   },
   skillCategories: {
+    gamedev: "Desarrollo de Videojuegos",
     frontend: "Desarrollo Frontend",
     backend: "Desarrollo Backend",
-    gamedev: "Desarrollo de Videojuegos",
     tools: "Herramientas y DevOps",
   },
   web: {

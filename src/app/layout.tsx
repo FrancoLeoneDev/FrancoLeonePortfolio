@@ -9,24 +9,26 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Franco Leone | Full Stack & Game Developer",
+  title: "Franco Leone | Game & Full Stack Developer",
   description:
-    "Full Stack Developer & Game Developer with expertise in React, TypeScript, Node.js, Unity, and Unreal Engine. Building high-quality web applications and interactive experiences.",
+    "Game Developer & Full Stack Developer with expertise in Unity, Unreal Engine, React, TypeScript, and Node.js. Building gameplay systems and high-quality web applications.",
   keywords: [
     "Franco Leone",
-    "Full Stack Developer",
     "Game Developer",
-    "React",
-    "TypeScript",
     "Unity",
     "Unreal Engine",
+    "C++",
+    "C#",
+    "Full Stack Developer",
+    "React",
+    "TypeScript",
     "Web Developer",
   ],
   authors: [{ name: "Franco Leone" }],
   openGraph: {
-    title: "Franco Leone | Full Stack & Game Developer",
+    title: "Franco Leone | Game & Full Stack Developer",
     description:
-      "Full Stack Developer & Game Developer specializing in web applications and interactive experiences.",
+      "Game Developer & Full Stack Developer specializing in gameplay systems and web applications.",
     type: "website",
   },
 };

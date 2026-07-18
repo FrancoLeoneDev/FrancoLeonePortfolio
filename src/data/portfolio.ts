@@ -3,12 +3,12 @@ import type { Localized } from "@/i18n/dictionaries";
 export const personalInfo = {
   name: "Franco Leone",
   title: {
-    en: "Full Stack & Game Developer",
-    es: "Desarrollador Full Stack y de Videojuegos",
+    en: "Game & Full Stack Developer",
+    es: "Desarrollador de Videojuegos y Full Stack",
   },
   subtitle: {
-    en: "Building high-quality web applications and interactive gaming experiences",
-    es: "Creando aplicaciones web de alta calidad y experiencias de juego interactivas",
+    en: "Building interactive gaming experiences and high-quality web applications",
+    es: "Creando experiencias de juego interactivas y aplicaciones web de alta calidad",
   },
   email: "francoleone.dev@gmail.com",
   location: "Buenos Aires, Argentina",
@@ -21,8 +21,8 @@ export const personalInfo = {
 
 export const aboutText: { intro: Localized; details: Localized[] } = {
   intro: {
-    en: "I'm a Full Stack Developer & Game Developer with strong capabilities in both web/app and game development.",
-    es: "Soy Desarrollador Full Stack y de Videojuegos, con sólidas capacidades tanto en desarrollo web/apps como de juegos.",
+    en: "I'm a Game Developer & Full Stack Developer with strong capabilities in both game and web/app development.",
+    es: "Soy Desarrollador de Videojuegos y Full Stack, con sólidas capacidades tanto en desarrollo de juegos como web/apps.",
   },
   details: [
     {
@@ -43,10 +43,17 @@ export const aboutText: { intro: Localized; details: Localized[] } = {
 export interface Skill {
   name: string;
   iconKey: string;
-  category: "frontend" | "backend" | "gamedev" | "tools";
+  category: "gamedev" | "frontend" | "backend" | "tools";
 }
 
+// Ordered game-dev first, matching how the rest of the site names the two poles.
 export const skills: Skill[] = [
+  // Game Development
+  { name: "Unity", iconKey: "Unity", category: "gamedev" },
+  { name: "C#", iconKey: "CSharp", category: "gamedev" },
+  { name: "Unreal Engine", iconKey: "UnrealEngine", category: "gamedev" },
+  { name: "C++", iconKey: "CPlusPlus", category: "gamedev" },
+
   // Frontend
   { name: "React", iconKey: "React", category: "frontend" },
   { name: "TypeScript", iconKey: "TypeScript", category: "frontend" },
@@ -61,12 +68,6 @@ export const skills: Skill[] = [
   { name: "PHP", iconKey: "PHP", category: "backend" },
   { name: "PostgreSQL", iconKey: "PostgreSQL", category: "backend" },
   { name: "Supabase", iconKey: "Supabase", category: "backend" },
-
-  // Game Development
-  { name: "Unity", iconKey: "Unity", category: "gamedev" },
-  { name: "C#", iconKey: "CSharp", category: "gamedev" },
-  { name: "Unreal Engine", iconKey: "UnrealEngine", category: "gamedev" },
-  { name: "C++", iconKey: "CPlusPlus", category: "gamedev" },
 
   // Tools
   { name: "Docker", iconKey: "Docker", category: "tools" },
@@ -261,7 +262,29 @@ export interface Experience {
   technologies: string[];
 }
 
+// Two concurrent roles. "(Freelance)" on the ABK entry is load-bearing: it is
+// what explains two simultaneous "Present" periods rather than a stale record.
 export const experiences: Experience[] = [
+  {
+    id: "exp-abk",
+    role: {
+      en: "Web Developer (Freelance)",
+      es: "Desarrollador Web (Freelance)",
+    },
+    company: "ABK Solutions",
+    period: { en: "2026 - Present", es: "2026 - Presente" },
+    description: [
+      {
+        en: "Building full-stack web applications end to end as the sole developer",
+        es: "Construcción de aplicaciones web full-stack de punta a punta como único desarrollador",
+      },
+      {
+        en: "Owning the full delivery: data model, server logic, and interface",
+        es: "A cargo de toda la entrega: modelo de datos, lógica de servidor e interfaz",
+      },
+    ],
+    technologies: ["TypeScript", "React", "Next.js", "Supabase"],
+  },
   {
     id: "exp-1",
     role: {
@@ -284,9 +307,10 @@ export const experiences: Experience[] = [
   },
 ];
 
+// Key order drives the render order of the Skills section — game-dev first.
 export const skillCategories = {
+  gamedev: "Game Development",
   frontend: "Frontend Development",
   backend: "Backend Development",
-  gamedev: "Game Development",
   tools: "Tools & DevOps",
 };
