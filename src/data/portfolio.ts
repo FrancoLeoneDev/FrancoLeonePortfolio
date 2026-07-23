@@ -209,7 +209,7 @@ export const featuredGame: Project = {
   featured: true,
 };
 
-// Individual Unreal Engine (C++) gameplay systems. Each maps to a LinkedIn write-up.
+// Individual gameplay systems (Unreal Engine C++ or Unity C#). Each maps to a LinkedIn write-up.
 // To add a system: append here and drop <id>.mp4 / <id>.jpg into public/systems/.
 export interface GameSystem {
   id: string;
@@ -219,10 +219,24 @@ export interface GameSystem {
   video?: string; // /systems/<id>.mp4 — optional inline clip
   tags: string[];
   linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
-  engine: "unreal";
+  engine: "unreal" | "unity";
 }
 
 export const gameSystems: GameSystem[] = [
+  {
+    id: "investigation-board",
+    title: "Investigation Board System",
+    description: {
+      en: "The core mechanic of an investigation game in Unity (C#): photograph clues, pin them to a cork board, and link them with red thread to reconstruct the case. The threads are a physically-simulated Verlet rope running on the UI's own real-time clock, so they keep swinging while the board freezes game time (timeScale = 0). Built entirely with UI Toolkit.",
+      es: "La mecánica principal de un juego de investigación en Unity (C#): fotografiás las pistas, las pinchás en un tablero de corcho y las conectás con hilo rojo para reconstruir el caso. Los hilos son una cuerda Verlet simulada físicamente que corre en el reloj propio de la UI en tiempo real, así que se siguen balanceando aunque el tablero congele el tiempo de juego (timeScale = 0). Todo hecho con UI Toolkit.",
+    },
+    poster: "/systems/investigation-board.jpg",
+    video: "/systems/investigation-board.mp4",
+    tags: ["Unity", "C#", "UI Toolkit", "Gameplay"],
+    linkedinUrl:
+      "https://www.linkedin.com/posts/franco-leone-294511242_unity-unity3d-gamedev-ugcPost-7486164897823830016-PsUL",
+    engine: "unity",
+  },
   {
     id: "grid-inventory",
     title: "Grid Inventory System",
