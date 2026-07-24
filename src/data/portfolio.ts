@@ -123,7 +123,7 @@ export const projects: Project[] = [
     },
     image: "/projects/sagis.jpg",
     tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Supabase"],
-    liveUrl: "https://sagis-sand.vercel.app/",
+    liveUrl: "https://www.sagis.com.ar/",
     status: "completed",
     featured: true,
   },
