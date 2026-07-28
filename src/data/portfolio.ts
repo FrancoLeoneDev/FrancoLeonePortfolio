@@ -276,8 +276,9 @@ export interface Experience {
   technologies: string[];
 }
 
-// Two concurrent roles. "(Freelance)" on the ABK entry is load-bearing: it is
-// what explains two simultaneous "Present" periods rather than a stale record.
+// Reverse-chronological: the current role goes first. Periods are deliberately
+// year-only (no months) — the standard CV convention, and it keeps the two
+// entries reading as a continuous span. Don't "improve" these into month ranges.
 export const experiences: Experience[] = [
   {
     id: "exp-abk",
@@ -306,7 +307,7 @@ export const experiences: Experience[] = [
       es: "Ingeniero de Software Full Stack",
     },
     company: "Nimbex Labs",
-    period: { en: "2025 - Present", es: "2025 - Presente" },
+    period: { en: "2025 - 2026", es: "2025 - 2026" },
     description: [
       {
         en: "Developing full-stack web applications using modern technologies",
