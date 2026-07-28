@@ -43,6 +43,7 @@ const en = {
     subtitle:
       "Full-stack web applications and e-commerce platforms built with modern technologies.",
     featured: "Featured",
+    ownProject: "Independent project",
     statusCompleted: "Completed",
     statusInProgress: "In Progress",
     readMore: "Read more",
@@ -129,6 +130,7 @@ const es: Dictionary = {
     subtitle:
       "Aplicaciones web full-stack y plataformas de e-commerce construidas con tecnologías modernas.",
     featured: "Destacado",
+    ownProject: "Proyecto propio",
     statusCompleted: "Completado",
     statusInProgress: "En progreso",
     readMore: "Ver más",

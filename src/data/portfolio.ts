@@ -75,6 +75,16 @@ export const skills: Skill[] = [
   { name: "Linux/Bash", iconKey: "Linux", category: "tools" },
 ];
 
+/**
+ * Who the work belongs to. Every project carries one so the reader never has to
+ * infer authorship by elimination: omitting `org` renders as "Proyecto propio",
+ * naming it renders as "<empresa> · <rol>". Keep `role` short — it shares one line.
+ */
+export interface ProjectCredit {
+  org?: string; // employer/agency; absent = own project
+  role: Localized;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -85,8 +95,31 @@ export interface Project {
   githubUrl?: string;
   status: "completed" | "in-progress";
   featured: boolean;
+  credit?: ProjectCredit;
 }
 
+const SOLO: ProjectCredit = {
+  role: { en: "Sole developer", es: "Único desarrollador" },
+};
+
+// Freelance work under ABK Solutions — named company, but full ownership of the build.
+const ABK_SOLO: ProjectCredit = {
+  org: "ABK Solutions",
+  role: { en: "Sole developer", es: "Único desarrollador" },
+};
+
+const NIMBEX_FULLSTACK: ProjectCredit = {
+  org: "Nimbex Labs",
+  role: { en: "Full stack, in a team", es: "Full stack, en equipo" },
+};
+
+const DANTOFEMA: ProjectCredit = {
+  org: "Dantofema",
+  role: { en: "In a team", es: "En equipo" },
+};
+
+// Ordered: own work first (it sells the strongest — full ownership), then the
+// employed work grouped by company. Don't interleave; the grouping is the point.
 export const projects: Project[] = [
   {
     id: "cookizza",
@@ -100,6 +133,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.cookizza.com.ar",
     status: "completed",
     featured: true,
+    credit: ABK_SOLO,
   },
   {
     id: "papelera-bahia",
@@ -113,6 +147,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.papelerabahia.com.ar",
     status: "completed",
     featured: true,
+    credit: ABK_SOLO,
   },
   {
     id: "sagis",
@@ -126,6 +161,38 @@ export const projects: Project[] = [
     liveUrl: "https://www.sagis.com.ar/",
     status: "completed",
     featured: true,
+    credit: SOLO,
+  },
+  {
+    id: "aifa",
+    title: "AiFA - Amateur Football Association",
+    description: {
+      en: "Institutional platform for AiFA, the largest amateur football association in Argentina: 140+ clubs, 3,600+ registered players and tournaments across four divisions, plus Recopa and Supercopa. I worked mainly on the backend — the disciplinary tribunal, the news portal, the yearbook, and real-time PDF generation for squad lists and match sheets — and also contributed to the frontend. Built at Nimbex Labs together with the team.",
+      es: "Plataforma institucional de AiFA, la asociación de fútbol amateur más grande de Argentina: más de 140 clubes, 3.600 jugadores registrados y torneos en cuatro divisiones, además de Recopa y Supercopa. Trabajé principalmente en el backend: el tribunal de disciplina, el portal de noticias, el anuario y la generación de PDFs en tiempo real de planillas de planteles y de partidos. También colaboré en el frontend. Desarrollado en Nimbex Labs junto al equipo.",
+    },
+    image: "/projects/aifa.jpg",
+    tags: ["Next.js", "TypeScript", "React", "Node.js", "PDF"],
+    liveUrl: "https://www.aifa.ar/",
+    status: "completed",
+    featured: true,
+    credit: {
+      org: "Nimbex Labs",
+      role: { en: "Backend, in a team", es: "Backend, en equipo" },
+    },
+  },
+  {
+    id: "nimbex-league",
+    title: "Nimbex League - Amateur LoL Tournaments",
+    description: {
+      en: "Competitive tournament platform for amateur League of Legends players in Latin America: persistent teams, 5v5 and 1v1 tournament registration, automatic brackets, scrims, result validation, player profiles with stats, rankings and subscriptions, with email, Discord and in-app notifications. I worked across the full stack with support from the team, at Nimbex Labs.",
+      es: "Plataforma de torneos competitivos de League of Legends para jugadores amateur de Latinoamérica: equipos persistentes, inscripción a torneos 5v5 y 1v1, brackets automáticos, scrims, validación de resultados, perfiles de jugador con estadísticas, rankings y suscripciones, con notificaciones por email, Discord e in-app. Lo trabajé full-stack, con el apoyo del equipo, en Nimbex Labs.",
+    },
+    image: "/projects/nimbex-league.jpg",
+    tags: ["Next.js", "TypeScript", "React", "Node.js", "SaaS"],
+    liveUrl: "https://league.nimbexlabs.com/",
+    status: "completed",
+    featured: true,
+    credit: NIMBEX_FULLSTACK,
   },
   {
     id: "dantofema",
@@ -139,6 +206,7 @@ export const projects: Project[] = [
     liveUrl: "https://dantofema.ar",
     status: "completed",
     featured: true,
+    credit: DANTOFEMA,
   },
   {
     id: "incasas",
@@ -152,6 +220,7 @@ export const projects: Project[] = [
     liveUrl: "https://incasas.com.ar",
     status: "completed",
     featured: true,
+    credit: DANTOFEMA,
   },
   {
     id: "mogotes",
@@ -165,6 +234,7 @@ export const projects: Project[] = [
     liveUrl: "https://mogotes.ar",
     status: "completed",
     featured: true,
+    credit: DANTOFEMA,
   },
   {
     id: "fiplatina",
@@ -178,6 +248,7 @@ export const projects: Project[] = [
     liveUrl: "https://fiplatina.press",
     status: "completed",
     featured: true,
+    credit: DANTOFEMA,
   },
   {
     id: "andes",
@@ -191,6 +262,7 @@ export const projects: Project[] = [
     liveUrl: "https://andes.dantofema.ar",
     status: "completed",
     featured: true,
+    credit: DANTOFEMA,
   },
 ];
 

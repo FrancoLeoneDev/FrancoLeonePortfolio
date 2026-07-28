@@ -135,6 +135,23 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         >
           {project.title}
         </motion.h3>
+        {project.credit && (
+          <motion.p
+            layout="position"
+            className="text-xs text-slate-500 mb-2 flex items-center gap-1.5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.1 + 0.25, duration: 0.4 }}
+          >
+            <span className="font-medium text-slate-600">
+              {project.credit.org ?? t.web.ownProject}
+            </span>
+            <span aria-hidden className="text-slate-300">
+              •
+            </span>
+            <span>{pick(project.credit.role)}</span>
+          </motion.p>
+        )}
         <motion.div
           layout
           className="mb-4 overflow-hidden"
