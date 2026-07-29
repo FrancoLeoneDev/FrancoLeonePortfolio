@@ -74,7 +74,9 @@ export const skills: Skill[] = [
   // Tools
   { name: "Docker", iconKey: "Docker", category: "tools" },
   { name: "Git", iconKey: "Git", category: "tools" },
+  { name: "CI/CD (GitHub Actions)", iconKey: "GitHubActions", category: "tools" },
   { name: "Linux/Bash", iconKey: "Linux", category: "tools" },
+  { name: "n8n", iconKey: "N8N", category: "tools" },
   { name: "Vercel", iconKey: "Vercel", category: "tools" },
 ];
 

@@ -16,6 +16,8 @@ import {
   SiCplusplus,
   SiDocker,
   SiGit,
+  SiGithubactions,
+  SiN8N,
   SiLinux,
   SiNextdotjs,
   SiVercel,
@@ -50,6 +52,8 @@ export const TechIcons: Record<string, IconType> = {
   // Tools
   Docker: SiDocker,
   Git: SiGit,
+  GitHubActions: SiGithubactions,
+  N8N: SiN8N,
   Linux: SiLinux,
   Vercel: SiVercel,
 };
