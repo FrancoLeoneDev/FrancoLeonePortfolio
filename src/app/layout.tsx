@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     "Web Developer",
   ],
   authors: [{ name: "Franco Leone" }],
+  // Served from public/ and declared here rather than as an app/icon.svg
+  // metadata route: with output: "export" that route fails to build.
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     title: "Franco Leone | Game & Full Stack Developer",
     description:

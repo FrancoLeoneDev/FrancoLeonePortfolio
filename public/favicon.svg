@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!--
+    FL monogram. Two things here are deliberate and should survive edits:
+
+    1. The letters are geometry, not text. A favicon renders with no access to
+       the site's webfonts, so `font-family: Archivo Expanded` would silently
+       fall back to whatever the OS happens to have and shift per machine.
+    2. No `currentColor`. A standalone SVG favicon has no CSS context and
+       resolves it to black, which would swallow the letters. Every colour is
+       literal, and the tile lightens under `prefers-color-scheme: dark` so the
+       mark keeps its punch against a dark tab strip.
+  -->
+  <style>
+    :root { --tile: #3B82F6; }
+    @media (prefers-color-scheme: dark) {
+      :root { --tile: #60A5FA; }
+    }
+  </style>
+
+  <rect width="32" height="32" rx="7" fill="var(--tile)"/>
+
+  <g fill="#FFFFFF">
+    <!-- F -->
+    <rect x="6" y="9" width="3" height="14"/>
+    <rect x="6" y="9" width="8.5" height="3"/>
+    <rect x="6" y="14.5" width="7" height="3"/>
+
+    <!-- L -->
+    <rect x="18" y="9" width="3" height="14"/>
+    <rect x="18" y="20" width="8" height="3"/>
+  </g>
+</svg>
