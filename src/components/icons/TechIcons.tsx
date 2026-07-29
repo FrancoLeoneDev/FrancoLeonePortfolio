@@ -5,6 +5,7 @@ import {
   SiHtml5,
   SiCss3,
   SiTailwindcss,
+  SiFramer,
   SiNodedotjs,
   SiPython,
   SiPhp,
@@ -30,6 +31,7 @@ export const TechIcons: Record<string, IconType> = {
   HTML: SiHtml5,
   CSS: SiCss3,
   TailwindCSS: SiTailwindcss,
+  FramerMotion: SiFramer,
   NextJS: SiNextdotjs,
 
   // Backend

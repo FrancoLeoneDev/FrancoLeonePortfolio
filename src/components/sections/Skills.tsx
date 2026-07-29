@@ -8,21 +8,21 @@ import { useLanguage } from "@/i18n/LanguageProvider";
 
 const categoryColors = {
   frontend: "from-blue-500 to-cyan-500",
-  backend: "from-green-500 to-emerald-500",
+  backend: "from-cyan-500 to-sky-600",
   gamedev: "from-purple-500 to-pink-500",
   tools: "from-orange-500 to-amber-500",
 };
 
 const categoryBgColors = {
   frontend: "bg-blue-50 border-blue-200 hover:border-blue-400",
-  backend: "bg-green-50 border-green-200 hover:border-green-400",
+  backend: "bg-cyan-50 border-cyan-200 hover:border-cyan-400",
   gamedev: "bg-purple-50 border-purple-200 hover:border-purple-400",
   tools: "bg-orange-50 border-orange-200 hover:border-orange-400",
 };
 
 const categoryIconColors = {
   frontend: "text-blue-500",
-  backend: "text-green-600",
+  backend: "text-cyan-600",
   gamedev: "text-purple-500",
   tools: "text-orange-500",
 };

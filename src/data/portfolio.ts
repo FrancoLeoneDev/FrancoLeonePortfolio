@@ -56,13 +56,15 @@ export const skills: Skill[] = [
 
   // Frontend
   { name: "React", iconKey: "React", category: "frontend" },
-  { name: "TypeScript", iconKey: "TypeScript", category: "frontend" },
-  { name: "JavaScript", iconKey: "JavaScript", category: "frontend" },
+  { name: "Next.js", iconKey: "NextJS", category: "frontend" },
   { name: "HTML", iconKey: "HTML", category: "frontend" },
   { name: "CSS", iconKey: "CSS", category: "frontend" },
   { name: "Tailwind CSS", iconKey: "TailwindCSS", category: "frontend" },
+  { name: "Framer Motion", iconKey: "FramerMotion", category: "frontend" },
 
   // Backend
+  { name: "TypeScript", iconKey: "TypeScript", category: "backend" },
+  { name: "JavaScript", iconKey: "JavaScript", category: "backend" },
   { name: "Node.js", iconKey: "NodeJS", category: "backend" },
   { name: "Python", iconKey: "Python", category: "backend" },
   { name: "PHP", iconKey: "PHP", category: "backend" },
@@ -73,6 +75,7 @@ export const skills: Skill[] = [
   { name: "Docker", iconKey: "Docker", category: "tools" },
   { name: "Git", iconKey: "Git", category: "tools" },
   { name: "Linux/Bash", iconKey: "Linux", category: "tools" },
+  { name: "Vercel", iconKey: "Vercel", category: "tools" },
 ];
 
 /**
@@ -129,7 +132,7 @@ export const projects: Project[] = [
       es: "E-commerce en producción para Cookizza, un emprendimiento familiar de cookies artesanales en Floresta, CABA. Storefront en Next.js + Supabase con un configurador \"armá tu Cookizza\" (base, toppings y salsas elegidos porción por porción), catálogo de cookies con unidades y cajas surtidas, carrito persistente, sección de eventos, feed de Instagram y checkout por WhatsApp con envíos en CABA o retiro en Floresta, además de un panel de administración para gestionar el catálogo.",
     },
     image: "/projects/cookizza.jpg",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "E-commerce"],
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "E-commerce"],
     liveUrl: "https://www.cookizza.com.ar",
     status: "completed",
     featured: true,
@@ -143,7 +146,7 @@ export const projects: Project[] = [
       es: "E-commerce en producción para un mayorista de descartables gastronómicos y packaging con base en CABA. Storefront en Next.js + Supabase con búsqueda de catálogo, filtros por categoría y material, stock en tiempo real, carrito persistente y checkout por WhatsApp que arma cada pedido del lado del servidor con total verificado.",
     },
     image: "/projects/papelera-bahia.jpg",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "E-commerce"],
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "E-commerce"],
     liveUrl: "https://www.papelerabahia.com.ar",
     status: "completed",
     featured: true,
@@ -157,7 +160,7 @@ export const projects: Project[] = [
       es: "Plataforma de e-commerce full-stack para una panadería artesanal con catálogo de productos, carrito de compras, integración con el feed de Instagram y sistema de pedidos por WhatsApp. Construida con tecnologías web modernas y desplegada en Vercel.",
     },
     image: "/projects/sagis.jpg",
-    tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Supabase"],
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "E-commerce"],
     liveUrl: "https://www.sagis.com.ar/",
     status: "completed",
     featured: true,
@@ -171,7 +174,7 @@ export const projects: Project[] = [
       es: "Plataforma institucional de AiFA, la asociación de fútbol amateur más grande de Argentina: más de 140 clubes, 3.600 jugadores registrados y torneos en cuatro divisiones, además de Recopa y Supercopa. Trabajé principalmente en el backend: el tribunal de disciplina, el portal de noticias, el anuario y la generación de PDFs en tiempo real de planillas de planteles y de partidos. También colaboré en el frontend. Desarrollado en Nimbex Labs junto al equipo.",
     },
     image: "/projects/aifa.jpg",
-    tags: ["Next.js", "TypeScript", "React", "Node.js", "PDF"],
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "Sports Platform"],
     liveUrl: "https://www.aifa.ar/",
     status: "completed",
     featured: true,
@@ -188,7 +191,7 @@ export const projects: Project[] = [
       es: "Plataforma de torneos competitivos de League of Legends para jugadores amateur de Latinoamérica: equipos persistentes, inscripción a torneos 5v5 y 1v1, brackets automáticos, scrims, validación de resultados, perfiles de jugador con estadísticas, rankings y suscripciones, con notificaciones por email, Discord e in-app. Lo trabajé full-stack, con el apoyo del equipo, en Nimbex Labs.",
     },
     image: "/projects/nimbex-league.jpg",
-    tags: ["Next.js", "TypeScript", "React", "Node.js", "SaaS"],
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "Esports"],
     liveUrl: "https://league.nimbexlabs.com/",
     status: "completed",
     featured: true,
