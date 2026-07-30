@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { GameSystem } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { EngineBadge } from "@/components/ui/EngineBadge";
 
 export function GameSystemCard({ system, index }: { system: GameSystem; index: number }) {
   const { t, pick } = useLanguage();
@@ -63,13 +64,25 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         )}
+
+        {/* Several clips have their own UI burned into the frame near the top ("Large Item",
+            "Cubo prueba"). This keeps the badge legible instead of colliding with it. */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/50 to-transparent" />
+
+        {/* Overlaid rather than in the content block: these cards are already dense, and the
+            badge costs no vertical space here. */}
+        <EngineBadge
+          engine={system.engine}
+          className="absolute left-3 top-3 z-10 border-white/30 bg-white/85 shadow-sm backdrop-blur"
+        />
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
+        {/* h4: the block label above the grid is the h3. */}
+        <h4 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
           {system.title}
-        </h3>
+        </h4>
         <p className="text-slate-600 text-sm mb-4">{pick(system.description)}</p>
 
         <div className="flex flex-wrap gap-2 mb-4">

@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { featuredGame, gameSystems } from "@/data/portfolio";
+import { editorTools, featuredGame, gameSystems } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { BlockLabel } from "@/components/ui/BlockLabel";
+import { EditorToolCard } from "./EditorToolCard";
 import { FeaturedGameCard } from "./FeaturedGameCard";
 import { GameSystemCard } from "./GameSystemCard";
 
@@ -40,31 +42,16 @@ export function GameDev() {
           </motion.p>
         </motion.div>
 
-        {/* Unity — Featured Game */}
+        {/* Featured Game */}
         <div className="mb-16">
-          <motion.h3
-            className="text-sm font-semibold uppercase tracking-wider text-primary-600 mb-6"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            {t.games.featuredGameLabel}
-          </motion.h3>
+          {/* No subtitle under this one, so the label carries the gap to the card itself. */}
+          <BlockLabel className="mb-6">{t.games.featuredGameLabel}</BlockLabel>
           <FeaturedGameCard game={featuredGame} />
         </div>
 
-        {/* Unreal — Gameplay Systems */}
-        <div>
-          <motion.h3
-            className="text-sm font-semibold uppercase tracking-wider text-primary-600 mb-2"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            {t.games.systemsLabel}
-          </motion.h3>
+        {/* Gameplay Systems */}
+        <div className="mb-16">
+          <BlockLabel>{t.games.systemsLabel}</BlockLabel>
           <motion.p
             className="text-slate-600 mb-6"
             initial={{ opacity: 0 }}
@@ -77,6 +64,25 @@ export function GameDev() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gameSystems.map((system, index) => (
               <GameSystemCard key={system.id} system={system} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* Editor Tools */}
+        <div>
+          <BlockLabel>{t.games.toolsLabel}</BlockLabel>
+          <motion.p
+            className="text-slate-600 mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            {t.games.toolsSubtitle}
+          </motion.p>
+          <div className="space-y-8">
+            {editorTools.map((tool, index) => (
+              <EditorToolCard key={tool.id} tool={tool} index={index} />
             ))}
           </div>
         </div>

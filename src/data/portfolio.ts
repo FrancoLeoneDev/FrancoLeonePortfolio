@@ -90,6 +90,12 @@ export interface ProjectCredit {
   role: Localized;
 }
 
+/** One frame in a game's gallery. Caption optional — game art usually speaks for itself. */
+export interface GameShot {
+  src: string;
+  caption?: Localized;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -101,6 +107,14 @@ export interface Project {
   status: "completed" | "in-progress";
   featured: boolean;
   credit?: ProjectCredit;
+  /** Game projects only — renders an EngineBadge. Web projects leave it unset. */
+  engine?: EngineKey;
+  /**
+   * Featured game only. When set, the card shows a carousel of these instead of the single
+   * `image`; list every frame you want shown, including the first. `image` stays as the
+   * canonical still used elsewhere.
+   */
+  images?: GameShot[];
 }
 
 const SOLO: ProjectCredit = {
@@ -238,11 +252,25 @@ export const featuredGame: Project = {
     es: "Juego de terror ambientado en los años 90 con una mecánica única de memoria donde el jugador se sumerge en fotografías para resolver puzzles y escapar de una pesadilla. Explora entornos atmosféricos como una mansión y un hospital, con puzzles interactivos y eventos de terror.",
   },
   image: "/projects/memora.jpg",
-  tags: ["Unity", "C#", "Game Development", "Horror"],
+  // Opens on the title card, then the environments grouped by location — the two settings named
+  // in the description. Append here to add more; the carousel's dots and arrows appear on their
+  // own past one frame. `caption` is optional and unused here.
+  images: [
+    { src: "/projects/memora.jpg" },
+    { src: "/projects/memora/mansion-living.jpg" },
+    { src: "/projects/memora/mansion-corridor.jpg" },
+    { src: "/projects/memora/hospital-corridor.jpg" },
+    { src: "/projects/memora/hospital-lobby.jpg" },
+  ],
+  tags: ["C#", "Game Development", "Horror"],
   liveUrl: "https://memoraoficial.itch.io/memora",
   status: "in-progress",
   featured: true,
+  engine: "unity",
 };
+
+/** Which engine a piece of work was built in. Rendered as a badge — see EngineBadge. */
+export type EngineKey = "unreal" | "unity";
 
 // Individual gameplay systems (Unreal Engine C++ or Unity C#). Each maps to a LinkedIn write-up.
 // To add a system: append here and drop <id>.mp4 / <id>.jpg into public/systems/.
@@ -254,7 +282,7 @@ export interface GameSystem {
   video?: string; // /systems/<id>.mp4 — optional inline clip
   tags: string[];
   linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
-  engine: "unreal" | "unity";
+  engine: EngineKey;
 }
 
 export const gameSystems: GameSystem[] = [
@@ -267,7 +295,7 @@ export const gameSystems: GameSystem[] = [
     },
     poster: "/systems/investigation-board.jpg",
     video: "/systems/investigation-board.mp4",
-    tags: ["Unity", "C#", "UI Toolkit", "Gameplay"],
+    tags: ["C#", "UI Toolkit", "Gameplay"],
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unity-unity3d-gamedev-ugcPost-7486164897823830016-PsUL",
     engine: "unity",
@@ -281,7 +309,7 @@ export const gameSystems: GameSystem[] = [
     },
     poster: "/systems/grid-inventory.jpg",
     video: "/systems/grid-inventory.mp4",
-    tags: ["Unreal Engine", "C++", "UE5", "Gameplay"],
+    tags: ["C++", "UE5", "Gameplay"],
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-ugcPost-7482871303042150401-wwiF",
     engine: "unreal",
@@ -295,10 +323,107 @@ export const gameSystems: GameSystem[] = [
     },
     poster: "/systems/object-inspection.jpg",
     video: "/systems/object-inspection.mp4",
-    tags: ["Unreal Engine", "C++", "UE5", "Gameplay"],
+    tags: ["C++", "UE5", "Gameplay"],
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-activity-7453919156778725376-Z6mx",
     engine: "unreal",
+  },
+];
+
+/**
+ * One screenshot in a tool's gallery. `width`/`height` are the file's natural size and are not
+ * optional: the gallery renders at 1:1 or smaller and never upscales, because these are editor
+ * UI captures whose 11px text turns to mush the moment it is scaled up.
+ */
+export interface ToolShot {
+  src: string;
+  width: number;
+  height: number;
+  caption: Localized;
+}
+
+/**
+ * An editor extension — tooling that speeds up building, as opposed to a gameplay system that
+ * ships in the game. Rendered as a full-width row, because the interface is the whole argument
+ * and it does not survive a 1/3-width grid cell.
+ *
+ * To add one: append here and drop the captures into public/tools/<id>/. Keep them PNG — the
+ * static export serves them unoptimized, and JPEG destroys UI text.
+ */
+export interface EditorTool {
+  id: string;
+  title: string;
+  engine: EngineKey;
+  problem: Localized; // why the tool exists; shown above the description
+  description: Localized;
+  shots: ToolShot[];
+  tags: string[]; // engine deliberately omitted — the badge already says it
+  linkedinUrl?: string; // button hidden when empty/absent
+}
+
+export const editorTools: EditorTool[] = [
+  {
+    id: "reparent",
+    title: "Reparent",
+    engine: "unity",
+    problem: {
+      en: "In a scene with 300+ objects, Unity's default reparenting means dragging a row across a hierarchy whose target is scrolled off-screen — slow, easy to drop in the wrong place, and painful to repeat.",
+      es: "En una escena con más de 300 objetos, el reparentado por defecto de Unity es arrastrar una fila por una jerarquía cuyo destino está fuera de pantalla: lento, fácil de soltar donde no va, y molesto de repetir.",
+    },
+    description: {
+      en: "A Unity editor extension in C# that adds a Parent field to the Inspector header — right where Unity should have put it, instead of behind another window. Three ways in: the field itself, a right-click entry on the object, or Ctrl+Shift+H. Typing searches the whole hierarchy with subsequence matching, so mscm resolves to Mesa_Comedor, and every result carries its full path so repeated names stay unambiguous. If the parent doesn't exist yet, you create it and group into it without leaving the field. It works on multi-selections, a toggle controls whether world position survives the move, and every reparent is one Ctrl+Z away.",
+      es: "Una extensión de editor para Unity en C# que agrega un campo Parent en el header del Inspector, justo donde Unity debería haberlo puesto en vez de escondido detrás de otra ventana. Se llega de tres formas: el campo mismo, una entrada con click derecho sobre el objeto, o Ctrl+Shift+H. Al escribir busca en toda la jerarquía con matching por subsecuencia, así mscm resuelve a Mesa_Comedor, y cada resultado muestra su path completo para que los nombres repetidos nunca queden ambiguos. Si el padre todavía no existe, lo creás y agrupás sin salir del campo. Funciona con selección múltiple, un toggle controla si la posición world sobrevive al movimiento, y cada reparentado se deshace con un solo Ctrl+Z.",
+    },
+    shots: [
+      {
+        src: "/tools/reparent/1.png",
+        width: 598,
+        height: 405,
+        caption: {
+          en: "The problem: 300+ objects in the hierarchy. Mesa_SinUbicar sits at the bottom while its intended parent is scrolled out of view.",
+          es: "El problema: más de 300 objetos en la jerarquía. Mesa_SinUbicar está al fondo mientras su padre queda fuera de pantalla.",
+        },
+      },
+      {
+        src: "/tools/reparent/2.png",
+        width: 657,
+        height: 128,
+        caption: {
+          en: "The Parent field, injected into the Inspector header below Tag and Layer. No extra window, no separate workflow.",
+          es: "El campo Parent, inyectado en el header del Inspector debajo de Tag y Layer. Sin ventana aparte ni flujo separado.",
+        },
+      },
+      {
+        src: "/tools/reparent/3.png",
+        width: 515,
+        height: 432,
+        caption: {
+          en: "Typing filters the entire hierarchy, and each result shows its full path — so a scene full of repeated names stays unambiguous.",
+          es: "Al escribir se filtra toda la jerarquía, y cada resultado muestra su path completo: una escena llena de nombres repetidos deja de ser ambigua.",
+        },
+      },
+      {
+        src: "/tools/reparent/4.png",
+        width: 521,
+        height: 432,
+        caption: {
+          en: "Subsequence matching: mscm resolves to Mesa_Comedor. And if the parent doesn't exist yet, create it and group into it inline.",
+          es: "Matching por subsecuencia: mscm resuelve a Mesa_Comedor. Y si el padre todavía no existe, lo creás y agrupás ahí mismo.",
+        },
+      },
+      {
+        src: "/tools/reparent/5.png",
+        width: 602,
+        height: 407,
+        caption: {
+          en: "Result: the object lands under Comedor and the hierarchy reads cleanly again.",
+          es: "Resultado: el objeto queda bajo Comedor y la jerarquía vuelve a leerse ordenada.",
+        },
+      },
+    ],
+    tags: ["C#", "Editor Scripting", "Inspector Extension", "Fuzzy Search"],
+    linkedinUrl:
+      "https://www.linkedin.com/posts/franco-leone-294511242_unity-unity3d-gamedev-ugcPost-7488706774393425920-1KnB",
   },
 ];
 

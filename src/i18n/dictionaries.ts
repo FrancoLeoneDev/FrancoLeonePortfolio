@@ -52,10 +52,18 @@ const en = {
   },
   games: {
     heading: "Game Development",
-    subtitle: "A featured game and a collection of individual gameplay systems.",
+    subtitle:
+      "A featured game, individual gameplay systems, and the editor tools I build to speed the work up.",
     featuredGameLabel: "Featured Game",
     systemsLabel: "Gameplay Systems",
     systemsSubtitle: "Individual gameplay systems built in Unreal Engine (C++) and Unity (C#).",
+    toolsLabel: "Editor Tools",
+    toolsSubtitle:
+      "Editor extensions that take the friction out of the day-to-day of building scenes.",
+    toolProblem: "The problem",
+    galleryShot: "Screenshot",
+    galleryPrev: "Previous screenshot",
+    galleryNext: "Next screenshot",
     playDemo: "Play the demo",
     viewOnLinkedin: "View on LinkedIn",
     statusInProgress: "In Progress",
@@ -139,10 +147,18 @@ const es: Dictionary = {
   },
   games: {
     heading: "Desarrollo de Videojuegos",
-    subtitle: "Un juego destacado y una colección de sistemas de gameplay individuales.",
+    subtitle:
+      "Un juego destacado, sistemas de gameplay individuales, y las herramientas de editor que construyo para acelerar el trabajo.",
     featuredGameLabel: "Juego destacado",
     systemsLabel: "Sistemas de Gameplay",
     systemsSubtitle: "Sistemas individuales construidos en Unreal Engine (C++) y Unity (C#).",
+    toolsLabel: "Herramientas de Editor",
+    toolsSubtitle:
+      "Extensiones de editor que sacan la fricción del día a día de armar escenas.",
+    toolProblem: "El problema",
+    galleryShot: "Captura",
+    galleryPrev: "Captura anterior",
+    galleryNext: "Captura siguiente",
     playDemo: "Jugar la demo",
     viewOnLinkedin: "Ver en LinkedIn",
     statusInProgress: "En progreso",
