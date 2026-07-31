@@ -66,6 +66,7 @@ const en = {
     galleryNext: "Next screenshot",
     playDemo: "Play the demo",
     viewOnLinkedin: "View on LinkedIn",
+    viewOnGithub: "View on GitHub",
     statusInProgress: "In Progress",
   },
   experience: {
@@ -161,6 +162,7 @@ const es: Dictionary = {
     galleryNext: "Captura siguiente",
     playDemo: "Jugar la demo",
     viewOnLinkedin: "Ver en LinkedIn",
+    viewOnGithub: "Ver en GitHub",
     statusInProgress: "En progreso",
   },
   experience: {

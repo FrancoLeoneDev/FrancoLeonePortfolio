@@ -13,6 +13,11 @@
   --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
 
+  /* GitHub's UI purple (the merged-PR violet), used only by the repo links so they
+     read as "this is the code" instead of blending into the site's blue links. */
+  --color-github-600: #8250df;
+  --color-github-700: #6639ba;
+
   /* Custom fonts */
   --font-sans: "Inter", system-ui, sans-serif;
 

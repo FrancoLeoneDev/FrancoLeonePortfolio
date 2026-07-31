@@ -359,6 +359,7 @@ export interface EditorTool {
   shots: ToolShot[];
   tags: string[]; // engine deliberately omitted — the badge already says it
   linkedinUrl?: string; // button hidden when empty/absent
+  githubUrl?: string; // idem — not every tool has a public repo
 }
 
 export const editorTools: EditorTool[] = [
@@ -424,6 +425,7 @@ export const editorTools: EditorTool[] = [
     tags: ["C#", "Editor Scripting", "Inspector Extension", "Fuzzy Search"],
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unity-unity3d-gamedev-ugcPost-7488706774393425920-1KnB",
+    githubUrl: "https://github.com/FrancoLeoneDev/reparent",
   },
 ];
 
