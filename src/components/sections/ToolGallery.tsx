@@ -17,6 +17,12 @@ export function ToolGallery({ shots, title }: { shots: ToolShot[]; title: string
   const { t, pick } = useLanguage();
   const { trackRef, active, goTo } = useSnapCarousel(shots.length);
 
+  // The track takes its height from the tallest shot's aspect ratio instead of a fixed value.
+  // A fixed height is set by whatever the first tool happened to capture, and letterboxes anything
+  // squarer down to a fraction of the column width — which is exactly where editor UI stops being
+  // readable. Capped at 70vh so a portrait capture can't push the card past the viewport.
+  const tallest = shots.reduce((max, shot) => Math.max(max, shot.height / shot.width), 0);
+
   return (
     // min-w-0 throughout: the thumbnail strip is wider than a phone, and without this its
     // min-content width would push the whole card past the viewport.
@@ -24,7 +30,8 @@ export function ToolGallery({ shots, title }: { shots: ToolShot[]; title: string
       <div className="group relative min-w-0 overflow-hidden rounded-xl border border-slate-200">
         <div
           ref={trackRef}
-          className="flex h-[260px] snap-x snap-mandatory overflow-x-auto bg-[#1e1e1e] sm:h-[360px] lg:h-[460px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{ aspectRatio: `1 / ${tallest}` }}
+          className="flex max-h-[70vh] snap-x snap-mandatory overflow-x-auto bg-[#1e1e1e] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shots.map((shot, index) => (
             <div

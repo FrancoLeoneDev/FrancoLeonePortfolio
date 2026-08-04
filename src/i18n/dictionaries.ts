@@ -59,7 +59,7 @@ const en = {
     systemsSubtitle: "Individual gameplay systems built in Unreal Engine (C++) and Unity (C#).",
     toolsLabel: "Editor Tools",
     toolsSubtitle:
-      "Editor extensions that take the friction out of the day-to-day of building scenes.",
+      "Editor extensions that take the friction out of the day-to-day of building a game.",
     toolProblem: "The problem",
     galleryShot: "Screenshot",
     galleryPrev: "Previous screenshot",
@@ -155,7 +155,7 @@ const es: Dictionary = {
     systemsSubtitle: "Sistemas individuales construidos en Unreal Engine (C++) y Unity (C#).",
     toolsLabel: "Herramientas de Editor",
     toolsSubtitle:
-      "Extensiones de editor que sacan la fricción del día a día de armar escenas.",
+      "Extensiones de editor que sacan la fricción del día a día de construir un juego.",
     toolProblem: "El problema",
     galleryShot: "Captura",
     galleryPrev: "Captura anterior",

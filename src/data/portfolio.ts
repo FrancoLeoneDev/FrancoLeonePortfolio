@@ -362,7 +362,72 @@ export interface EditorTool {
   githubUrl?: string; // idem — not every tool has a public repo
 }
 
+// Newest first: the most recent tool is the one worth landing on.
 export const editorTools: EditorTool[] = [
+  {
+    id: "audio-trim",
+    title: "Audio Trim",
+    engine: "unity",
+    problem: {
+      en: "Memora's generated sounds arrive exported to a fixed duration and padded with silence — a 3-second file whose sound dies at one and a half. That isn't just ugly: several gestures derive their duration from clip length, so a door set to open \"for as long as its creak lasts\" kept moving, silently, through all the padding.",
+      es: "Los sonidos generados de Memora salen exportados a una duración fija y rellenados con silencio: un archivo de 3 segundos donde el sonido muere al segundo y medio. No es solo feo: la duración de varios gestos se deriva del largo del clip, así que una puerta que se abre «lo que dura su crujido» seguía moviéndose, en silencio, durante todo el relleno.",
+    },
+    description: {
+      en: "A Unity editor extension in C# that does what no external editor can: the trimmed file inherits the original's .meta — same GUID, same import settings — so every prefab and scene that referenced the clip resolves to the new file without being touched. Silence detection proposes the cut instead of imposing it; both markers drag on the waveform, and the play button gives you exactly the range that will be written, with a playhead running over it. Per-clip fades default to 2 ms — inaudible, there only to kill the click any hard cut leaves behind. A whole folder goes at once, always behind a mandatory preview. Output is hand-written 16-bit PCM WAV, because Unity reads mp3 but cannot encode it. Free under MIT and editor-only: the assembly isn't compiled into player builds, so there's zero weight and zero runtime cost.",
+      es: "Una extensión de editor para Unity en C# que hace lo que ninguna herramienta externa puede: el archivo recortado hereda el .meta del original, con el mismo GUID y los mismos import settings, así que todo prefab y escena que usaba ese clip sigue funcionando sin tocar nada. La detección de silencio propone el corte, no lo impone: los dos marcadores se mueven a mano sobre la forma de onda, y el botón de play reproduce exactamente el tramo que se va a escribir, con un cabezal corriendo sobre ella. Los fades por clip vienen en 2 ms: no se escuchan, están para matar el click que deja cualquier corte seco. Una carpeta entera se procesa de una vez, siempre detrás de un preview obligatorio. La salida es WAV PCM de 16 bits escrito a mano, porque Unity lee mp3 pero no puede codificarlo. Gratis con licencia MIT y editor-only: el assembly ni siquiera se compila en los builds del juego, así que no pesa ni corre nada en runtime.",
+    },
+    shots: [
+      {
+        src: "/tools/audio-trim/1.png",
+        width: 1200,
+        height: 1200,
+        caption: {
+          en: "Audio Trim: trim audio clips in Unity without breaking a single reference in the project.",
+          es: "Audio Trim: recortar clips de audio en Unity sin romper una sola referencia del proyecto.",
+        },
+      },
+      {
+        src: "/tools/audio-trim/2.png",
+        width: 1200,
+        height: 1200,
+        caption: {
+          en: "Generated audio arrives padded to a fixed length — 40% of this 1.01 s file is silence. Detection places the two markers; you drag them from there.",
+          es: "El audio generado llega rellenado a una duración fija: el 40% de este archivo de 1,01 s es silencio. La detección coloca los dos marcadores y de ahí los movés vos.",
+        },
+      },
+      {
+        src: "/tools/audio-trim/3.png",
+        width: 1200,
+        height: 1200,
+        caption: {
+          en: "Why every clip gets 2 ms of fade by default: cutting where the wave isn't at zero makes the speaker cone snap back, and that is heard as a click.",
+          es: "Por qué cada clip lleva 2 ms de fade por defecto: cortar donde la onda no está en cero hace que el cono del parlante vuelva de golpe, y eso se escucha como un click.",
+        },
+      },
+      {
+        src: "/tools/audio-trim/4.png",
+        width: 1200,
+        height: 1200,
+        caption: {
+          en: "A whole folder loads at once, each clip with its own proposed cut and its own checkbox. Nothing is written before you have seen the preview.",
+          es: "Una carpeta entera carga de una vez, cada clip con su corte propuesto y su propio checkbox. Nada se escribe antes de que hayas visto el preview.",
+        },
+      },
+      {
+        src: "/tools/audio-trim/5.png",
+        width: 1200,
+        height: 1200,
+        caption: {
+          en: "Free under MIT and editor-only: no dependencies, and the assembly is not compiled into player builds at all.",
+          es: "Gratis con licencia MIT y editor-only: sin dependencias, y el assembly no se compila en los builds del juego.",
+        },
+      },
+    ],
+    tags: ["C#", "Editor Scripting", "Audio Pipeline", "WAV Encoding"],
+    linkedinUrl:
+      "https://www.linkedin.com/posts/franco-leone-294511242_unity-gamedev-indiedev-activity-7490455826336305153-6vCC",
+    githubUrl: "https://github.com/FrancoLeoneDev/audio-trim",
+  },
   {
     id: "reparent",
     title: "Reparent",
