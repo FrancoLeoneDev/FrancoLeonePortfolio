@@ -14,12 +14,15 @@ export function EditorToolCard({ tool, index }: { tool: EditorTool; index: numbe
   const { t, pick } = useLanguage();
 
   return (
+    // The id makes each tool linkable on its own (the CV points at #audio-trim rather than the
+    // top of the page); scroll-mt clears the fixed navbar so the card doesn't land under it.
     <motion.article
+      id={tool.id}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="grid gap-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm lg:grid-cols-5 lg:p-8"
+      className="grid scroll-mt-24 gap-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm lg:grid-cols-5 lg:p-8"
     >
       {/* min-w-0 on both columns: grid children default to min-content width, which the gallery's
           thumbnail strip would otherwise blow past on narrow viewports. */}
