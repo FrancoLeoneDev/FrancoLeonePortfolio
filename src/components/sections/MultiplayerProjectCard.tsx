@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import type { MultiplayerProject } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { EngineBadge } from "@/components/ui/EngineBadge";
+import { ExpandableText } from "@/components/ui/ExpandableText";
 import { ResourceLink } from "@/components/ui/ResourceLink";
-import { MultiplayerGallery } from "./MultiplayerGallery";
+import { MediaGallery } from "./MediaGallery";
 
 /**
  * A full-width row, same as the editor tools and for the same reason: the evidence
@@ -32,7 +33,7 @@ export function MultiplayerProjectCard({
       className="grid scroll-mt-24 gap-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm lg:grid-cols-5 lg:p-8"
     >
       <div className="min-w-0 lg:col-span-3">
-        <MultiplayerGallery media={project.media} title={project.title} />
+        <MediaGallery media={project.media} title={project.title} />
       </div>
 
       <div className="flex min-w-0 flex-col lg:col-span-2">
@@ -51,9 +52,13 @@ export function MultiplayerProjectCard({
           <p className="mb-4 text-xs text-slate-400">{pick(project.context)}</p>
         )}
 
-        <p className="mb-5 text-sm leading-relaxed text-slate-600">
-          {pick(project.description)}
-        </p>
+        <div className="mb-5">
+          <ExpandableText
+            text={pick(project.description)}
+            lines={4}
+            className="text-sm leading-relaxed text-slate-600"
+          />
+        </div>
 
         <div className="mb-5 flex flex-wrap gap-2">
           {project.tags.map((tag) => (

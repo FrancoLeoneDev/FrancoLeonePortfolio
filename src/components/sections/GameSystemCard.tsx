@@ -6,10 +6,12 @@ import { motion } from "framer-motion";
 import { GameSystem } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { EngineBadge } from "@/components/ui/EngineBadge";
+import { ExpandableText } from "@/components/ui/ExpandableText";
+import { playFullscreen } from "@/components/ui/playFullscreen";
 import { ResourceLink } from "@/components/ui/ResourceLink";
 
 export function GameSystemCard({ system, index }: { system: GameSystem; index: number }) {
-  const { pick } = useLanguage();
+  const { t, pick } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -34,12 +36,15 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
   }, []);
 
   return (
+    // The id makes each system linkable on its own — the in-development band points
+    // at one of these. scroll-mt clears the fixed navbar.
     <motion.article
+      id={system.id}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col"
+      className="group relative scroll-mt-24 bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col"
       whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)" }}
     >
       {/* Media */}
@@ -59,7 +64,7 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
         ) : (
           <Image
             src={system.poster}
-            alt={system.title}
+            alt={pick(system.title)}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -76,15 +81,58 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
           engine={system.engine}
           className="absolute left-3 top-3 z-10 border-white/30 bg-white/85 shadow-sm backdrop-blur"
         />
+
+        {/* Which game it ships in, opposite the engine badge. Same treatment as the
+            topology badge on the multiplayer cards: a fact about the work, not a
+            technology, so it stays out of the tag row below. */}
+        {system.project && (
+          <span className="absolute right-3 top-3 z-10 rounded-full border border-white/30 bg-white/85 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur">
+            {system.project}
+          </span>
+        )}
+
+        {/* Covers the whole frame so the clip itself is the target. Only the icon is
+            painted, and only on hover — a permanent overlay would fight the clip. */}
+        {system.video && (
+          <button
+            type="button"
+            onClick={() => playFullscreen(videoRef.current)}
+            aria-label={`${pick(system.title)} — ${t.common.enlarge}`}
+            className="absolute inset-0 z-10 flex items-end justify-end p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-400"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/70 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 8V4m0 0h4M4 4l5 5m11-5v4m0-4h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+                />
+              </svg>
+            </span>
+          </button>
+        )}
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
         {/* h4: the block label above the grid is the h3. */}
         <h4 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
-          {system.title}
+          {pick(system.title)}
         </h4>
-        <p className="text-slate-600 text-sm mb-4">{pick(system.description)}</p>
+        <div className="mb-4">
+          <ExpandableText
+            text={pick(system.description)}
+            lines={3}
+            className="text-slate-600 text-sm"
+          />
+        </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {system.tags.map((tag) => (

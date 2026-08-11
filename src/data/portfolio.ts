@@ -248,9 +248,13 @@ export const projects: Project[] = [
 export const featuredGame: Project = {
   id: "memora",
   title: "Memora - Horror Game Demo",
+  // Deliberately says what the game is and not how its mechanics work: the memory
+  // dive, the document reading, the in-game PC and the chain examine each have their
+  // own card in Gameplay Systems below. Telling it twice makes the short version
+  // compete with the detailed one, and the short version loses.
   description: {
-    en: "90s-era horror game featuring a unique memory mechanic where players dive into photographs to solve puzzles and escape from a nightmare. Explores atmospheric environments including a mansion and hospital with interactive puzzles and horror events.",
-    es: "Juego de terror ambientado en los años 90 con una mecánica única de memoria donde el jugador se sumerge en fotografías para resolver puzzles y escapar de una pesadilla. Explora entornos atmosféricos como una mansión y un hospital, con puzzles interactivos y eventos de terror.",
+    en: "A 90s-era horror game in Unity, in development: a mansion and a hospital to explore, built around old photographs and the memories kept inside them. The puzzles live in the places themselves and the horror events are staged around them. The cards marked Memora further down this section are the systems that make it run.",
+    es: "Juego de terror ambientado en los años 90, hecho en Unity y en desarrollo: una mansión y un hospital para explorar, construido alrededor de fotos viejas y los recuerdos que guardan. Los puzzles están en los lugares mismos y los eventos de terror se montan sobre ellos. Las tarjetas marcadas como Memora más abajo en esta sección son los sistemas que lo hacen funcionar.",
   },
   image: "/projects/memora.jpg",
   // Opens on the title card, then the environments grouped by location — the two settings named
@@ -270,6 +274,38 @@ export const featuredGame: Project = {
   engine: "unity",
 };
 
+/**
+ * A game with nothing to show yet. Rendered as a text-only band, never as a card
+ * with an empty media slot: a missing image reads as a bug, while a deliberately
+ * text-first block reads as an announcement. `status` exists so the stage is said
+ * out loud rather than inferred from the absence of screenshots — the reader
+ * believes you when you say it is early, and doubts you when they have to guess.
+ */
+export interface UpcomingGame {
+  id: string;
+  title: string;
+  description: Localized;
+  status: Localized;
+  /** Id of a gameplay system already published from this game, linked as proof. */
+  systemAnchor?: string;
+}
+
+export const upcomingGames: UpcomingGame[] = [
+  {
+    id: "listof20",
+    title: "ListOf20",
+    description: {
+      en: "A detective and deduction game: you arrive at a mansion holding twenty bodies and have to work out, from the guest list, who each one is — whether they were murdered, by whom, and the cause of death. The investigation board is where you photograph what you find and build your own conjectures.",
+      es: "Un juego de detective y deducción: llegás a una mansión con veinte cadáveres y tenés que deducir, a partir de la lista de invitados, a quién pertenece cada uno — si fue asesinado, quién lo hizo y la causa de muerte. El tablero de investigación es donde sacás fotos de lo que encontrás y armás tus propias conjeturas.",
+    },
+    status: {
+      en: "Early prototype — no visual material to show yet.",
+      es: "Prototipo temprano — todavía sin material visual para mostrar.",
+    },
+    systemAnchor: "investigation-board",
+  },
+];
+
 /** Which engine a piece of work was built in. Rendered as a badge — see EngineBadge. */
 export type EngineKey = "unreal" | "unity";
 
@@ -277,7 +313,20 @@ export type EngineKey = "unreal" | "unity";
 // To add a system: append here and drop <id>.mp4 / <id>.jpg into public/systems/.
 export interface GameSystem {
   id: string;
-  title: string;
+  /**
+   * Localized, unlike the titles on tools and games: a system's name is a
+   * description ("Grid Inventory System"), not a proper noun. Audio Trim and
+   * Reparent keep their English names because that is what they are called on
+   * GitHub, and Memora is a game's name — those must not be translated.
+   */
+  title: Localized;
+  /**
+   * The game this system ships in. Deliberately not a tag: the tag row is
+   * technologies, and "Memora" is a different kind of fact — it says the system
+   * runs inside a finished game rather than in an isolated demo, which is worth
+   * more. Rendered as its own badge opposite the engine badge.
+   */
+  project?: string;
   description: Localized;
   poster: string; // /systems/<id>.jpg — shown as video poster and as fallback when no video
   video?: string; // /systems/<id>.mp4 — optional inline clip
@@ -288,8 +337,140 @@ export interface GameSystem {
 
 export const gameSystems: GameSystem[] = [
   {
+    id: "memory-dive",
+    title: {
+      en: "Memory Dive System",
+      es: "Sistema de Inmersión en Recuerdos",
+    },
+    project: "Memora",
+    description: {
+      en: "Memora's core mechanic, in Unity (C#): you look at a photograph, hold for three seconds, and you are inside the memory. Through the hold an HDRP custom pass runs a four-stage grade — peripheral vision opens up, the world drains of colour until the photograph is the only living thing left, and at the end everything floods to white — while a custom shader tears a crack of light open in the paper. The light coming out of that crack is not a screen effect: it is a real volumetric point light that lights the room and pulses at 1.5 Hz, in sync with the core of the crack. Past the point of no return, the memory's scene loads additively with its own arrival grade.",
+      es: "La mecánica principal de Memora, hecha en Unity (C#): mirás una foto, mantenés apretado tres segundos y entrás adentro del recuerdo. Durante el hold, un custom pass de HDRP corre un grading de cuatro etapas —la visión periférica se abre, el mundo pierde el color hasta que la foto es lo único vivo, y al final todo se inunda de blanco— mientras un shader propio abre una grieta de luz en el papel. La luz que sale de la grieta no es un efecto de pantalla: es un point light volumétrico real que ilumina la habitación y late a 1,5 Hz, sincronizado con el núcleo de la grieta. Al cruzar el punto de no retorno, la escena del recuerdo se carga de forma aditiva con su propio grading de llegada.",
+    },
+    poster: "/systems/memory-dive.jpg",
+    video: "/systems/memory-dive.mp4",
+    tags: ["C#", "HDRP Custom Pass", "Shaders", "Additive Loading"],
+    engine: "unity",
+  },
+  {
+    id: "document-reading",
+    title: {
+      en: "Document Reading System",
+      es: "Sistema de Lectura de Documentos",
+    },
+    project: "Memora",
+    description: {
+      en: "A note and document reading system in Unity (C#): the paper never moves, and it never teleports into the player's hand. The camera fades to black, reappears in front of the document where it actually sits, and comes back the same way, with a side panel holding the transcription and the inspection light on for dark rooms. The core decision was to never interpolate the camera — every move is a fade over an instant teleport, because in first person a camera lerp the player does not control reads as sloppy and makes people queasy. It replaces three earlier systems with one.",
+      es: "Sistema de lectura de notas y documentos en Unity (C#): el papel nunca se mueve ni se teletransporta a la mano del jugador. La cámara hace un fade a negro, reaparece frente al documento donde está realmente, y vuelve del mismo modo, con un panel lateral que muestra la transcripción y la luz de inspección encendida para cuartos oscuros. La decisión central fue no interpolar la cámara en ningún momento: todo el movimiento son fades sobre teleports instantáneos, porque en primera persona un lerp de cámara que el jugador no controla se lee sucio y marea. Unifica tres sistemas anteriores en uno.",
+    },
+    poster: "/systems/document-reading.jpg",
+    video: "/systems/document-reading.mp4",
+    tags: ["C#", "First-Person Camera", "UI"],
+    engine: "unity",
+  },
+  {
+    id: "in-game-pc",
+    title: {
+      en: "In-Game PC System",
+      es: "Sistema de PC Dentro del Juego",
+    },
+    project: "Memora",
+    description: {
+      en: "A working computer inside the game, in Unity (C#): you sit down, it boots with its own sound, the screen swaps material and lights the room, and it asks for a password you work out by exploring the house. Inside there are mail and photo sections and a security-camera circuit that renders real cameras from the scene, each with its own feed. The whole desktop — windows, icons, taskbar — is built on Canvas. Every piece of state (password solved, section open, what you have read) persists through ISaveable, and it drives a printer that first needs you to find paper.",
+      es: "Una computadora funcional dentro del juego, hecha en Unity (C#): te sentás, arranca con su sonido de booteo, la pantalla cambia de material y prende su propia luz, y te pide una contraseña que se deduce explorando la casa. Adentro hay secciones de mail, de fotos y un circuito de cámaras de seguridad que renderiza cámaras reales de la escena, cada una con su propia señal. Todo el escritorio —ventanas, iconos, barra de tareas— está hecho en Canvas. Todo el estado (contraseña resuelta, sección abierta, qué leíste) persiste vía ISaveable, y está conectada a una impresora que primero necesita que le consigas papel.",
+    },
+    poster: "/systems/in-game-pc.jpg",
+    video: "/systems/in-game-pc.mp4",
+    tags: ["C#", "Canvas / uGUI", "Render Textures", "Save System"],
+    engine: "unity",
+  },
+  {
+    id: "chain-examine",
+    title: {
+      en: "Chain Examine System",
+      es: "Sistema de Inspección Encadenada",
+    },
+    project: "Memora",
+    description: {
+      en: "Object inspection with sub-elements in Unity (C#): what you are holding can carry parts you interact with without putting it down. A painting comes off the wall; you pick it up, rotate it, and inside the broken frame there is a photograph you take and keep. While something inside is still unresolved, the container blocks the exit — you cannot drop the object until you have dealt with what it holds. Sub-elements live on their own raycast layer.",
+      es: "Inspección de objetos con sub-elementos, hecha en Unity (C#): lo que tenés en la mano puede tener partes con las que interactuás sin soltarlo. Se cae un cuadro de la pared; lo levantás, lo rotás, y dentro del marco roto hay una foto que sacás y te quedás. Mientras haya algo pendiente adentro, el contenedor bloquea la salida: no podés soltar el objeto hasta resolver lo que tiene. Los sub-elementos viven en su propia layer de raycast.",
+    },
+    poster: "/systems/chain-examine.jpg",
+    video: "/systems/chain-examine.mp4",
+    tags: ["C#", "Raycasting", "Interaction"],
+    engine: "unity",
+  },
+  {
+    id: "inventory",
+    title: {
+      en: "Inventory System",
+      es: "Sistema de Inventario",
+    },
+    project: "Memora",
+    description: {
+      en: "An inventory in Unity (C#) you open at any point to go back over what you have found and inspect it again unhurried: each object is shown in 3D, you rotate it with the mouse over the blurred background and read it alongside its description. The categories are defined by the game — three here, because they are the ones the story needs: usable objects, notes and photographs. All of it persists through the save system, and the photographs can be entered from here too, straight into their memory.",
+      es: "Inventario hecho en Unity (C#) que abrís en cualquier momento para repasar lo que conseguiste y volver a inspeccionarlo con calma: cada objeto se muestra en 3D, lo rotás con el mouse sobre el fondo difuminado y lo leés con su descripción al lado. Las categorías las define el juego; en este caso son tres, porque son las que la historia necesita: objetos utilizables, notas y fotos. Todo persiste en el sistema de guardado, y a los recuerdos de las fotos también se entra desde acá.",
+    },
+    poster: "/systems/inventory.jpg",
+    video: "/systems/inventory.mp4",
+    tags: ["C#", "UI", "3D Preview", "Save System"],
+    engine: "unity",
+  },
+  {
+    id: "interactions-menu",
+    title: {
+      en: "Interactions Menu System",
+      es: "Sistema de Menú de Interacciones",
+    },
+    project: "Memora",
+    description: {
+      en: "A key and item-selection system in Unity (C#): interact with a locked door and the camera moves in on the lock where it stands, opening a 3x3 grid of the inventory in miniature. You pick with WASD and use with space; a wrong item returns a red flash without throwing you out of the menu, and the right key is consumed, travels to the mouth of the lock and turns. The menu is generic — anything in the world that implements IMenuInteractable uses it, doors, printer, lamp — and each one returns its own verdict on whether the item fit.",
+      es: "Sistema de llaves y selector de objetos hecho en Unity (C#): al interactuar con una puerta trabada, la cámara se acerca a la cerradura in situ y se abre una grilla de 3×3 con el inventario en miniatura. Elegís con WASD y usás con espacio; un objeto incorrecto devuelve un flash rojo sin sacarte del menú, y la llave correcta se consume, viaja hasta la boca de la cerradura y gira. El menú es genérico: cualquier objeto del mundo que implemente IMenuInteractable lo usa —puertas, impresora, lámpara— y cada uno devuelve su propio veredicto de si el ítem servía.",
+    },
+    poster: "/systems/interactions-menu.jpg",
+    video: "/systems/interactions-menu.mp4",
+    tags: ["C#", "Interface-Driven", "UI", "Inventory"],
+    engine: "unity",
+  },
+  {
+    id: "scripted-set-piece",
+    title: {
+      en: "Scripted Set-Piece System",
+      es: "Sistema de Set-Pieces Scripteados",
+    },
+    project: "Memora",
+    description: {
+      en: "A framework for scripted set-pieces in Unity (C#): a persistent base class that fires when the player looks towards a point and then orchestrates independent actuators — a warm-light fader, a dying lamp, a desaturation volume, a micro-movement oscillator, the dissociation effect — each one unaware of the others. The moment in the clip is six phases: the corridor's four warm lights die in parallel, the hanging lamp agonises in warm and comes back cold, revealing a figure at the far end, and the audio riser is tuned so its peak lands on the exact frame where the hospital ceiling appears over the house. The composition rule was that the hospital is the noun, the grade is the adjective and the dissociation is the verb, and that everything converges on a single downbeat. The last phase hides the reset under a blink: when you open your eyes the house is normal again and the figure is gone.",
+      es: "Framework de set-pieces scripteados hecho en Unity (C#): una clase base persistente que se dispara cuando el jugador mira hacia un punto y orquesta actuadores independientes —un fader de luces cálidas, una lámpara que agoniza, un volumen de desaturación, un oscilador de micro-movimiento, el efecto de disociación—, cada uno ignorante de los demás. El momento del video son seis fases: las cuatro luces cálidas del pasillo mueren en paralelo, la lámpara colgante agoniza en cálido y vuelve a encender fría, revelando una figura al fondo, y el riser de audio está tuneado para que su pico caiga clavado en el mismo frame en que el techo del hospital aparece sobre la casa. La regla de composición fue que el hospital es el sustantivo, el grade el adjetivo y la disociación el verbo, y que todo converja en un solo downbeat. La fase final esconde el reset debajo de un parpadeo del personaje: cuando abrís los ojos la casa volvió a la normalidad y la figura no está.",
+    },
+    poster: "/systems/scripted-set-piece.jpg",
+    video: "/systems/scripted-set-piece.mp4",
+    tags: ["C#", "Sequencing", "Lighting", "Audio Sync"],
+    engine: "unity",
+  },
+  {
+    id: "physics-door",
+    title: {
+      en: "Physics Door System",
+      es: "Sistema de Puertas Físicas",
+    },
+    project: "Memora",
+    description: {
+      en: "Doors with no open button, in Unity (C#): the leaf is a Rigidbody on a HingeJoint and you push it with your body as you walk, so it swings differently depending on where you touch it and how hard. The rule the system runs on is that continuous interaction is physics and the discrete verb is animation — pushing is physics, but the slam when you run in and the close on a key press are animations, so they look the same every time. It covers locked-door feedback, collision layers that follow the state of the leaf, and optional auto-close through JointSpring. On closing, the door sweeps its own path: if you are standing in the doorway it stays open instead of passing through you.",
+      es: "Puertas sin botón de abrir, hechas en Unity (C#): la hoja es un Rigidbody con HingeJoint y la empujás con el cuerpo al caminar, así que gira distinto según dónde y con cuánta fuerza la toques. La regla del sistema es que la interacción continua es física y el verbo discreto es animación: empujar es física, pero el portazo al entrar corriendo y el cierre con la tecla son animaciones, para que se vean iguales siempre. Incluye feedback de puerta trabada, capas de colisión que siguen el estado de la hoja y auto-cierre opcional por JointSpring. Al cerrar, la puerta chequea su propio barrido: si estás parado en el vano, no cierra en vez de atravesarte.",
+    },
+    poster: "/systems/physics-door.jpg",
+    video: "/systems/physics-door.mp4",
+    tags: ["C#", "Physics", "HingeJoint", "Collision Layers"],
+    engine: "unity",
+  },
+  {
     id: "investigation-board",
-    title: "Investigation Board System",
+    title: {
+      en: "Investigation Board System",
+      es: "Sistema de Tablero de Investigación",
+    },
+    project: "ListOf20",
     description: {
       en: "The core mechanic of an investigation game in Unity (C#): photograph clues, pin them to a cork board, and link them with red thread to reconstruct the case. The threads are a physically-simulated Verlet rope running on the UI's own real-time clock, so they keep swinging while the board freezes game time (timeScale = 0). Built entirely with UI Toolkit.",
       es: "La mecánica principal de un juego de investigación en Unity (C#): fotografiás las pistas, las pinchás en un tablero de corcho y las conectás con hilo rojo para reconstruir el caso. Los hilos son una cuerda Verlet simulada físicamente que corre en el reloj propio de la UI en tiempo real, así que se siguen balanceando aunque el tablero congele el tiempo de juego (timeScale = 0). Todo hecho con UI Toolkit.",
@@ -303,7 +484,10 @@ export const gameSystems: GameSystem[] = [
   },
   {
     id: "grid-inventory",
-    title: "Grid Inventory System",
+    title: {
+      en: "Grid Inventory System",
+      es: "Sistema de Inventario en Grilla",
+    },
     description: {
       en: "A Tetris-style grid inventory built in Unreal Engine with C++: items occupy multiple cells with drag-and-drop placement, rotation, and stacking, backed by fast slot lookup and collision checks.",
       es: "Un inventario en grilla estilo Tetris hecho en Unreal Engine con C++: los ítems ocupan múltiples celdas con colocación por drag-and-drop, rotación y apilado, con búsqueda rápida de slots y chequeo de colisiones.",
@@ -317,7 +501,10 @@ export const gameSystems: GameSystem[] = [
   },
   {
     id: "object-inspection",
-    title: "Object Inspection System",
+    title: {
+      en: "Object Inspection System",
+      es: "Sistema de Inspección de Objetos",
+    },
     description: {
       en: "A first-person object inspection system in Unreal Engine with C++: pick up and rotate props in 3D to examine them, with smooth camera focus and highlight-on-hover.",
       es: "Un sistema de inspección de objetos en primera persona en Unreal Engine con C++: agarrá y rotá props en 3D para examinarlos, con enfoque de cámara suave y resaltado al pasar el mouse.",
@@ -362,6 +549,162 @@ export interface EditorTool {
   linkedinUrl?: string; // button hidden when empty/absent
   githubUrl?: string; // idem — not every tool has a public repo
 }
+
+/**
+ * Internal tooling, as opposed to `editorTools`, which are published on GitHub
+ * under MIT. Split into its own block because the two answer different questions:
+ * one is "what I release", the other is "how I work".
+ *
+ * It carries `media` rather than `shots` because these are usually argued in
+ * motion — a tool whose whole point is that it saves you half an hour is proved
+ * by watching the wait not happen, which no screenshot can show.
+ */
+export interface DebugTool {
+  id: string;
+  title: string;
+  engine: EngineKey;
+  problem: Localized;
+  description: Localized;
+  media: MediaItem[];
+  tags: string[];
+  githubUrl?: string;
+  linkedinUrl?: string;
+}
+
+// Empty renders nothing — the block stays hidden until there is a tool in it.
+export const debugTools: DebugTool[] = [
+  {
+    id: "unit-tests",
+    title: "Unit Test Suite",
+    engine: "unity",
+    problem: {
+      en: "Some logic can be verified neither by reading it nor by playing it. Whether an event fires once in so many runs, whether a cooldown really holds, whether the rationing of scares survives a long session — playing it thirty times does not separate a wrong probability from bad luck.",
+      es: "Hay lógica que no se puede verificar ni leyéndola ni jugando. Si un evento sale una vez cada tantas, si un cooldown corta de verdad, si el racionamiento de sustos aguanta un recorrido largo: jugarlo treinta veces no alcanza para distinguir una probabilidad mal puesta de la mala suerte.",
+    },
+    description: {
+      en: "98 EditMode tests over exactly that logic: probabilistic event selection, per-source-type cooldowns, scare rationing, phase gating and an absence budget. To make it testable, the director's engine was written as pure C# with no UnityEngine, taking the clock, the randomness source and the opportunity probe as injected dependencies: in production it gets Unity's clock, in the tests a fake one that jumps time forward. That same decision is what later enabled the match simulator — being able to run 100 thirty-three-minute playthroughs without entering Play comes from the engine never having depended on Time.time.",
+      es: "98 tests en EditMode sobre exactamente esa lógica: selección probabilística de eventos, cooldowns por tipo de fuente, racionamiento de sustos, gating por fases y presupuesto por ausencia. Para que fuera testeable, el motor del director se escribió como C# puro, sin UnityEngine, recibiendo inyectados el reloj, la fuente de aleatoriedad y el sondeo de oportunidad: en producción entra el reloj de Unity, en los tests uno falso que adelanta el tiempo de golpe. Esa misma decisión es la que después habilitó el simulador de partidas: poder correr 100 recorridos de 33 minutos sin entrar a Play sale de que el motor nunca dependió de Time.time.",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/debug/unit-tests/clip.mp4",
+        poster: "/debug/unit-tests/clip.jpg",
+        caption: {
+          en: "The whole suite running green, without the game ever entering Play.",
+          es: "La suite entera corriendo en verde, sin que el juego entre a Play nunca.",
+        },
+      },
+      {
+        type: "image",
+        src: "/debug/unit-tests/runner.jpg",
+        caption: {
+          en: "145 in the runner: 98 over the game's director logic, plus the suites that ship with Audio Trim and Reparent.",
+          es: "145 en el runner: 98 sobre la lógica del director del juego, más las suites que vienen con Audio Trim y Reparent.",
+        },
+      },
+    ],
+    tags: ["C#", "EditMode Tests", "Dependency Injection", "Pure C# Core"],
+  },
+  {
+    id: "lock-editor",
+    title: "Lock Editor",
+    engine: "unity",
+    problem: {
+      en: "The key fact was invisible: the point where the key ends up is a world-space offset added to the spawn — three numbers in the Inspector and nothing on screen. The only way to know whether the key went into the lock or buried itself in the wood was to enter Play, look, leave and correct, door by door.",
+      es: "El dato clave era invisible: el punto donde termina la llave es un offset en coordenadas de mundo que se le suma al spawn, tres números en el Inspector y nada que ver en pantalla. La única forma de saber si la llave entraba en la cerradura o se clavaba en la madera era entrar a Play, mirar, salir y corregir, puerta por puerta.",
+    },
+    description: {
+      en: "A custom editor for the locks: that point is now a handle you drag in the Scene view, with the key drawn at its origin and at its destination, the path between the two and the arc of the turn, plus a button that plays the whole animation without entering Play.",
+      es: "Editor propio para las cerraduras: ese punto ahora es un handle que arrastrás en la Scene view, con la llave dibujada en el origen y en el destino, la trayectoria entre ambos y el arco de giro, más un botón que reproduce la animación completa sin entrar a Play.",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/debug/lock-editor/clip.mp4",
+        poster: "/debug/lock-editor/clip.jpg",
+        caption: {
+          en: "The handle dragged against the Inspector that used to be the only way in.",
+          es: "El handle arrastrándose, contra el Inspector que antes era la única vía.",
+        },
+      },
+      {
+        type: "image",
+        src: "/debug/lock-editor/handles.jpg",
+        caption: {
+          en: "\"Sale acá\" and \"entra acá\": the offset stops being three numbers and becomes two points you can grab.",
+          es: "«Sale acá» y «entra acá»: el offset deja de ser tres números y pasa a ser dos puntos que se agarran.",
+        },
+      },
+    ],
+    tags: ["C#", "Custom Editor", "Scene Handles", "Level Authoring"],
+  },
+  {
+    id: "authoring-gizmos",
+    title: "Authoring Gizmos",
+    engine: "unity",
+    problem: {
+      en: "Tuning how an event moves — how far it turns, where it falls, how much spread it has — meant entering Play to see the result, leaving, nudging a number blind and going round again. In the Scene view a well-configured object and a broken one looked exactly alike.",
+      es: "Ajustar cómo se mueve un evento —cuánto gira, hacia dónde cae, con cuánta dispersión— obligaba a entrar a Play para ver el resultado, salir, tocar un número a ciegas y repetir. En la Scene view un objeto bien configurado y uno roto se veían exactamente igual.",
+    },
+    description: {
+      en: "Authoring gizmos that show in the Scene view what an event is going to do before you ever enter Play: which way an object turns, moves or falls, and with how much spread, without playing it. The cyan ghosts are the poses it will end up in.",
+      es: "Gizmos de autoría que muestran en la Scene view qué va a hacer un evento antes de entrar a Play: hacia dónde gira, se desplaza o cae un objeto y con cuánta dispersión, sin tener que jugar. Los fantasmas celestes son las poses donde va a terminar.",
+    },
+    media: [
+      {
+        type: "image",
+        src: "/debug/authoring-gizmos/1.jpg",
+        caption: {
+          en: "A chair and the poses it can settle into: the spread is visible as a range, not guessed from a number in the Inspector.",
+          es: "Una silla y las poses en las que puede terminar: la dispersión se ve como un rango, no se adivina desde un número en el Inspector.",
+        },
+      },
+      {
+        type: "image",
+        src: "/debug/authoring-gizmos/2.jpg",
+        caption: {
+          en: "A painting rigged to fall: the ghosts carry the rotation it can take, and the arrow marks where it lands.",
+          es: "Un cuadro preparado para caerse: los fantasmas llevan la rotación que puede tomar y la flecha marca por dónde cae.",
+        },
+      },
+    ],
+    tags: ["C#", "Editor Scripting", "Scene Gizmos", "Level Authoring"],
+  },
+  {
+    id: "jump-to",
+    title: "Jump To",
+    engine: "unity",
+    problem: {
+      en: "Checking a change late in the demo meant playing the demo to get there. Thirty-three minutes per iteration, which in practice means you stop iterating: you convince yourself the change is probably fine rather than sit through it again.",
+      es: "Verificar un cambio del final de la demo significaba jugar la demo hasta ahí. Treinta y tres minutos por iteración, que en la práctica es dejar de iterar: te convencés de que el cambio seguramente está bien en vez de bancarte el recorrido otra vez.",
+    },
+    description: {
+      en: "A Unity editor tool that boots the game straight into any point of the demo: you pick the memory and the moment from the menu, and seconds later you are standing there with every object the player would be carrying by then — so you test against real state and not an invented one. It is not a teleport. It skips the intro with the flag the game already had, waits for the player and the managers to exist, and loads the memory through the same path the game uses. Loading additively by hand would leave internal state in some arbitrary shape and send you chasing bugs that exist only because of the tool. It lives in Assets/Editor: it does not exist in the build.",
+      es: "Herramienta de editor de Unity que arranca el juego directo en cualquier momento de la demo: elegís el recuerdo y el momento en el menú, y a los pocos segundos estás parado ahí con todos los objetos que el jugador tendría a esa altura del juego, así probás sobre el estado real y no sobre uno inventado. No es un teleport: saltea la intro con el flag que el juego ya tenía, espera a que existan el jugador y los managers, y carga el recuerdo por el mismo camino que usa el juego. Una carga aditiva a mano dejaría el estado interno en cualquier cosa y te haría perseguir bugs que existen solo por culpa de la herramienta. Vive en Assets/Editor: no existe en la build.",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/debug/jump-to/clip.mp4",
+        poster: "/debug/jump-to/clip.jpg",
+        caption: {
+          en: "From the menu to standing inside the chosen memory, in one unbroken take.",
+          es: "Del menú a estar parado dentro del recuerdo elegido, en una sola toma sin cortes.",
+        },
+      },
+      {
+        type: "image",
+        src: "/debug/jump-to/menu.jpg",
+        caption: {
+          en: "The entry points, one menu item each: every memory and the house, each with its own moments.",
+          es: "Los puntos de entrada, uno por ítem de menú: cada recuerdo y la casa, cada uno con sus momentos.",
+        },
+      },
+    ],
+    tags: ["C#", "Editor Scripting", "Scene Loading", "Iteration Speed"],
+  },
+];
 
 // Newest first: the most recent tool is the one worth landing on.
 export const editorTools: EditorTool[] = [
@@ -560,10 +903,6 @@ export const multiplayerProjects: MultiplayerProject[] = [
     id: "fusion-host",
     title: "Fusion Arena",
     topology: "host",
-    context: {
-      en: "Coursework project",
-      es: "Proyecto de facultad",
-    },
     description: {
       en: "Online last-player-standing arena for four players, built with Unity and Photon Fusion 2. Movement, fire, dash and shield all travel through a single tick-aligned input struct; transforms sync via NetworkRigidbody3D and projectile lifetimes run on TickTimer rather than Unity's own clock. Runs on Fusion's Host Mode with the host as sole state authority — the authoritative counterpart to the Shared Mode architecture in Prototype-Network-Fusion-Shared — verified with four simultaneous clients.",
       es: "Arena multijugador online de último jugador en pie para cuatro jugadores, hecha en Unity con Photon Fusion 2. Movimiento, disparo, dash y escudo viajan en una única estructura de input alineada al tick; los transforms se sincronizan con NetworkRigidbody3D y la vida de los proyectiles corre sobre TickTimer y no sobre el reloj propio de Unity. Corre en Host Mode de Fusion, con el host como única autoridad de estado —la contraparte autoritativa de la arquitectura Shared Mode de Prototype-Network-Fusion-Shared—, verificado con cuatro clientes simultáneos.",
@@ -617,10 +956,6 @@ export const multiplayerProjects: MultiplayerProject[] = [
     id: "fusion-shared",
     title: "Fusion Obstacle Course",
     topology: "shared",
-    context: {
-      en: "Coursework project",
-      es: "Proyecto de facultad",
-    },
     description: {
       en: "Online multiplayer obstacle-course racer built with Unity and Photon Fusion 2. Four hazard types — sweeping obstacles, moving platforms, blinking walkways and collapsing floors — each replicated with the mechanism that fits it: NetworkTransform, networked physics or RPCs. Runs on Fusion's Shared Mode with no authoritative host — the peer-to-peer counterpart to the Host Mode architecture in Prototype-Network-Fusion-Host — verified with four simultaneous clients.",
       es: "Carrera de obstáculos multijugador online hecha en Unity con Photon Fusion 2. Cuatro tipos de obstáculo —barredoras, plataformas móviles, pasarelas intermitentes y pisos que se derrumban—, cada uno replicado con el mecanismo que le corresponde: NetworkTransform, física en red o RPCs. Corre en Shared Mode de Fusion, sin host autoritativo —la contraparte peer-to-peer de la arquitectura Host Mode de Prototype-Network-Fusion-Host—, verificado con cuatro clientes simultáneos.",
