@@ -22,7 +22,7 @@ import {
   SiNextdotjs,
   SiVercel,
 } from "react-icons/si";
-import { TbBrandCSharp } from "react-icons/tb";
+import { TbBrandCSharp, TbTopologyStar } from "react-icons/tb";
 import { IconType } from "react-icons";
 
 export const TechIcons: Record<string, IconType> = {
@@ -48,6 +48,9 @@ export const TechIcons: Record<string, IconType> = {
   CSharp: TbBrandCSharp,
   UnrealEngine: SiUnrealengine,
   CPlusPlus: SiCplusplus,
+  // A topology glyph, not Photon's brand mark: Simple Icons ships a "Photon" logo
+  // but it is not confirmed to be Photon Engine, and a wrong logo is worse than none.
+  PhotonFusion: TbTopologyStar,
 
   // Tools
   Docker: SiDocker,

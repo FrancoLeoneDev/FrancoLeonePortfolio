@@ -53,6 +53,7 @@ export const skills: Skill[] = [
   { name: "C#", iconKey: "CSharp", category: "gamedev" },
   { name: "Unreal Engine", iconKey: "UnrealEngine", category: "gamedev" },
   { name: "C++", iconKey: "CPlusPlus", category: "gamedev" },
+  { name: "Photon Fusion", iconKey: "PhotonFusion", category: "gamedev" },
 
   // Frontend
   { name: "React", iconKey: "React", category: "frontend" },
@@ -491,6 +492,167 @@ export const editorTools: EditorTool[] = [
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unity-unity3d-gamedev-ugcPost-7488706774393425920-1KnB",
     githubUrl: "https://github.com/FrancoLeoneDev/reparent",
+  },
+];
+
+/**
+ * Which Photon Fusion topology a prototype runs. The pair is the point: the same
+ * prototype under both models is what shows the decision, so keep them together.
+ */
+export type NetworkTopology = "shared" | "host";
+
+/**
+ * A networked prototype. Separate from GameSystem because the thing being shown
+ * is an architecture choice, not a mechanic — hence `topology`, and links to a
+ * repo (where the netcode actually is) rather than to a LinkedIn write-up.
+ *
+ * `buildUrl` is optional and should only be set when a lone visitor can reach a
+ * running session — opening two tabs into the same room. A build that needs two
+ * coordinated players shows an empty room and reads as broken.
+ */
+export interface MultiplayerProject {
+  id: string;
+  title: string;
+  topology: NetworkTopology;
+  description: Localized;
+  /** Where it came from — coursework, own prototype. Shown as a small credit line. */
+  context?: Localized;
+  /** Clip first, stills after: the clip is the proof, the stills are the detail. */
+  media: MediaItem[];
+  tags: string[];
+  githubUrl?: string;
+  build?: BuildLink;
+  engine: EngineKey;
+}
+
+/**
+ * A runnable artifact. `kind` decides the wording, and it matters: a browser build
+ * you click into and a 25 MB executable you download are different promises, and
+ * labelling the second one "Play" is how you annoy the person who clicked.
+ * `platform` and `size` are shown next to the link so nobody clicks blind.
+ */
+/**
+ * One slide of a prototype's gallery. `caption` is required, not decorative: on a
+ * grid of near-identical client windows the caption is what tells the reader what
+ * they are supposed to be noticing.
+ */
+export interface MediaItem {
+  type: "video" | "image";
+  src: string;
+  /** Videos only — the still shown before playback and in the thumbnail strip. */
+  poster?: string;
+  caption: Localized;
+}
+
+export interface BuildLink {
+  url: string;
+  kind: "play" | "download";
+  platform?: string;
+  size?: string;
+}
+
+// Empty renders nothing — the block is hidden until there is something in it.
+// The two entries are a deliberate pair: same engine, same stack, opposite network
+// topologies. Each description names the other's repo, so a reader landing on one
+// card knows the other exists. Keep that cross-reference if you edit the copy.
+export const multiplayerProjects: MultiplayerProject[] = [
+  {
+    id: "fusion-host",
+    title: "Fusion Arena",
+    topology: "host",
+    context: {
+      en: "Coursework project",
+      es: "Proyecto de facultad",
+    },
+    description: {
+      en: "Online last-player-standing arena for four players, built with Unity and Photon Fusion 2. Movement, fire, dash and shield all travel through a single tick-aligned input struct; transforms sync via NetworkRigidbody3D and projectile lifetimes run on TickTimer rather than Unity's own clock. Runs on Fusion's Host Mode with the host as sole state authority — the authoritative counterpart to the Shared Mode architecture in Prototype-Network-Fusion-Shared — verified with four simultaneous clients.",
+      es: "Arena multijugador online de último jugador en pie para cuatro jugadores, hecha en Unity con Photon Fusion 2. Movimiento, disparo, dash y escudo viajan en una única estructura de input alineada al tick; los transforms se sincronizan con NetworkRigidbody3D y la vida de los proyectiles corre sobre TickTimer y no sobre el reloj propio de Unity. Corre en Host Mode de Fusion, con el host como única autoridad de estado —la contraparte autoritativa de la arquitectura Shared Mode de Prototype-Network-Fusion-Shared—, verificado con cuatro clientes simultáneos.",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/multiplayer/fusion-host.mp4",
+        poster: "/multiplayer/fusion-host.jpg",
+        caption: {
+          en: "Four clients in one match: the shield bubble and the muzzle flash appear in all four views at once.",
+          es: "Cuatro clientes en una misma partida: la burbuja del escudo y el fogonazo aparecen en las cuatro vistas a la vez.",
+        },
+      },
+      {
+        type: "image",
+        src: "/multiplayer/fusion-host-1-menu.jpg",
+        caption: {
+          en: "The same build enters as host or as client — the choice that decides who holds state authority.",
+          es: "El mismo build entra como host o como cliente: la elección que decide quién tiene la autoridad de estado.",
+        },
+      },
+      {
+        type: "image",
+        src: "/multiplayer/fusion-host-2-lobby.jpg",
+        caption: {
+          en: "The room holds until the four players are in.",
+          es: "La sala espera hasta que entran los cuatro jugadores.",
+        },
+      },
+      {
+        type: "image",
+        src: "/multiplayer/fusion-host-3-result.jpg",
+        caption: {
+          en: "One outcome resolved for everyone: one \"You Win\" and three \"You Lose\", with lives at 3 and 0 on the matching clients.",
+          es: "Un único resultado resuelto para todos: un \"You Win\" y tres \"You Lose\", con las vidas en 3 y en 0 según el cliente.",
+        },
+      },
+    ],
+    tags: ["C#", "Photon Fusion 2", "Networking", "State Authority"],
+    githubUrl: "https://github.com/FrancoLeoneDev/Prototype-Network-Fusion-Host",
+    build: {
+      url: "https://drive.google.com/file/d/1FC7txzJb5p-VLa2PA9ufRHLQ98jr5ZWD/view?usp=sharing",
+      kind: "download",
+      platform: "Windows",
+      size: "25 MB",
+    },
+    engine: "unity",
+  },
+  {
+    id: "fusion-shared",
+    title: "Fusion Obstacle Course",
+    topology: "shared",
+    context: {
+      en: "Coursework project",
+      es: "Proyecto de facultad",
+    },
+    description: {
+      en: "Online multiplayer obstacle-course racer built with Unity and Photon Fusion 2. Four hazard types — sweeping obstacles, moving platforms, blinking walkways and collapsing floors — each replicated with the mechanism that fits it: NetworkTransform, networked physics or RPCs. Runs on Fusion's Shared Mode with no authoritative host — the peer-to-peer counterpart to the Host Mode architecture in Prototype-Network-Fusion-Host — verified with four simultaneous clients.",
+      es: "Carrera de obstáculos multijugador online hecha en Unity con Photon Fusion 2. Cuatro tipos de obstáculo —barredoras, plataformas móviles, pasarelas intermitentes y pisos que se derrumban—, cada uno replicado con el mecanismo que le corresponde: NetworkTransform, física en red o RPCs. Corre en Shared Mode de Fusion, sin host autoritativo —la contraparte peer-to-peer de la arquitectura Host Mode de Prototype-Network-Fusion-Host—, verificado con cuatro clientes simultáneos.",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/multiplayer/fusion-shared.mp4",
+        poster: "/multiplayer/fusion-shared.jpg",
+        caption: {
+          en: "Four clients running the course at once, with no host arbitrating: every peer holds authority over its own player.",
+          es: "Cuatro clientes recorriendo la pista a la vez, sin un host que arbitre: cada peer tiene autoridad sobre su propio jugador.",
+        },
+      },
+      {
+        type: "image",
+        src: "/multiplayer/fusion-shared-1-clients.jpg",
+        caption: {
+          en: "The same moment across the four views — each client sees itself in white and the other three in red.",
+          es: "El mismo momento en las cuatro vistas: cada cliente se ve a sí mismo en blanco y a los otros tres en rojo.",
+        },
+      },
+    ],
+    tags: ["C#", "Photon Fusion 2", "Networking", "State Replication"],
+    githubUrl: "https://github.com/FrancoLeoneDev/Prototype-Network-Fusion-Shared",
+    build: {
+      url: "https://drive.google.com/file/d/1u8U-V9pDbA7UmYAuUDRlOhImk3QR-4Qp/view?usp=sharing",
+      kind: "download",
+      platform: "Windows",
+      size: "22 MB",
+    },
+    engine: "unity",
   },
 ];
 

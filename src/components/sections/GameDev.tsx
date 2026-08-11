@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { editorTools, featuredGame, gameSystems } from "@/data/portfolio";
+import {
+  editorTools,
+  featuredGame,
+  gameSystems,
+  multiplayerProjects,
+} from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { BlockLabel } from "@/components/ui/BlockLabel";
 import { EditorToolCard } from "./EditorToolCard";
 import { FeaturedGameCard } from "./FeaturedGameCard";
 import { GameSystemCard } from "./GameSystemCard";
+import { MultiplayerProjectCard } from "./MultiplayerProjectCard";
 
 export function GameDev() {
   const { t } = useLanguage();
@@ -48,6 +54,33 @@ export function GameDev() {
           <BlockLabel className="mb-6">{t.games.featuredGameLabel}</BlockLabel>
           <FeaturedGameCard game={featuredGame} />
         </div>
+
+        {/* Multiplayer. Second, right after the featured game: these are whole playable
+            games — menu, lobby, win condition — so they belong with the games rather
+            than after the component-level blocks below. */}
+        {multiplayerProjects.length > 0 && (
+          <div className="mb-16">
+            <BlockLabel>{t.games.multiplayerLabel}</BlockLabel>
+            <motion.p
+              className="text-slate-600 mb-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              {t.games.multiplayerSubtitle}
+            </motion.p>
+            <div className="space-y-8">
+              {multiplayerProjects.map((project, index) => (
+                <MultiplayerProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Gameplay Systems */}
         <div className="mb-16">
