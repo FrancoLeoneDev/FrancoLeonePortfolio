@@ -21,6 +21,12 @@ const en = {
     getInTouch: "Get In Touch",
     scroll: "Scroll",
   },
+  common: {
+    readMore: "Read more",
+    showLess: "Show less",
+    close: "Close",
+    enlarge: "Play full size",
+  },
   about: {
     heading: "About Me",
     statWeb: "Web Projects",
@@ -57,11 +63,16 @@ const en = {
       "A featured game, individual gameplay systems, and the editor tools I build to speed the work up.",
     featuredGameLabel: "Featured Game",
     systemsLabel: "Gameplay Systems",
-    systemsSubtitle: "Individual gameplay systems built in Unreal Engine (C++) and Unity (C#).",
+    systemsSubtitle: "Individual gameplay systems built in Unity (C#) and Unreal Engine (C++).",
+    debugToolsLabel: "Testing & Debug Tools",
+    debugToolsSubtitle:
+      "Internal tools for iterating on systems and verifying them without friction. Being able to test a change in seconds instead of minutes changes how many times you test it, and that ends up showing in the result.",
     toolsLabel: "Editor Tools",
     toolsSubtitle:
       "Editor extensions that take the friction out of the day-to-day of building a game.",
     toolProblem: "The problem",
+    inDevelopment: "In development",
+    seeWhatIsBuilt: "See the system already built",
     multiplayerLabel: "Multiplayer",
     multiplayerSubtitle:
       "Networked prototypes in Photon Fusion — the same prototype under both of Fusion's topologies, so the netcode decision is the thing on display.",
@@ -138,6 +149,12 @@ const es: Dictionary = {
     getInTouch: "Contactame",
     scroll: "Scroll",
   },
+  common: {
+    readMore: "Ver más",
+    showLess: "Ver menos",
+    close: "Cerrar",
+    enlarge: "Ver en grande",
+  },
   about: {
     heading: "Sobre mí",
     statWeb: "Proyectos web",
@@ -174,11 +191,16 @@ const es: Dictionary = {
       "Un juego destacado, sistemas de gameplay individuales, y las herramientas de editor que construyo para acelerar el trabajo.",
     featuredGameLabel: "Juego destacado",
     systemsLabel: "Sistemas de Gameplay",
-    systemsSubtitle: "Sistemas individuales construidos en Unreal Engine (C++) y Unity (C#).",
+    systemsSubtitle: "Sistemas individuales construidos en Unity (C#) y Unreal Engine (C++).",
+    debugToolsLabel: "Testing & Debug Tools",
+    debugToolsSubtitle:
+      "Herramientas internas para iterar y verificar sistemas sin fricción. Poder probar un cambio en segundos en vez de minutos cambia cuántas veces lo probás, y eso termina notándose en el resultado.",
     toolsLabel: "Herramientas de Editor",
     toolsSubtitle:
       "Extensiones de editor que sacan la fricción del día a día de construir un juego.",
     toolProblem: "El problema",
+    inDevelopment: "En desarrollo",
+    seeWhatIsBuilt: "Ver el sistema ya construido",
     multiplayerLabel: "Multijugador",
     multiplayerSubtitle:
       "Prototipos en red con Photon Fusion: el mismo prototipo bajo las dos topologías de Fusion, para que lo que se muestre sea la decisión de netcode.",
