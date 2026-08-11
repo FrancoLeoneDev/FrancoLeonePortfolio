@@ -582,8 +582,8 @@ export const education: Education[] = [
     // programming-heavy subjects: they are what connects the degree to the
     // gameplay systems and editor tools shown earlier on the page.
     description: {
-      en: "A three-year official degree built around engine programming and simulation: engine application and engine programming, Artificial Intelligence I and II, models and algorithms, applied physics, network development and level design, closing with a final project. It is the formal grounding under the gameplay systems and editor tools shown above.",
-      es: "Carrera oficial de tres años centrada en la programación de motores y la simulación: Aplicación de Motores y Programación de Motores, Inteligencia Artificial I y II, Modelos y Algoritmos, física aplicada, desarrollo para redes y diseño de niveles, cerrada con un proyecto final. Es la base formal de los sistemas de gameplay y las herramientas de editor que muestro más arriba.",
+      en: "A three-year official degree in videogame design and programming, built around engine programming and simulation: engine application and engine programming, Artificial Intelligence I and II, models and algorithms, applied physics, network development and level design, closing with a final project. Escuela Da Vinci is recognized by Epic Games as an Education & Training Partner for Unreal Engine. It is the formal grounding under the gameplay systems and editor tools shown above.",
+      es: "Carrera oficial de tres años en diseño y programación de videojuegos, centrada en la programación de motores y la simulación: Aplicación de Motores y Programación de Motores, Inteligencia Artificial I y II, Modelos y Algoritmos, física aplicada, desarrollo para redes y diseño de niveles, cerrada con un proyecto final. Escuela Da Vinci está reconocida por Epic Games como Education & Training Partner de Unreal Engine. Es la base formal de los sistemas de gameplay y las herramientas de editor que muestro más arriba.",
     },
   },
 ];
