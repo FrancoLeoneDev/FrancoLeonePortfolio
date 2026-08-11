@@ -62,6 +62,15 @@ const en = {
     toolsSubtitle:
       "Editor extensions that take the friction out of the day-to-day of building a game.",
     toolProblem: "The problem",
+    multiplayerLabel: "Multiplayer",
+    multiplayerSubtitle:
+      "Networked prototypes in Photon Fusion — the same prototype under both of Fusion's topologies, so the netcode decision is the thing on display.",
+    topology: {
+      shared: "Shared Mode",
+      host: "Host / Client",
+    },
+    playBuild: "Play the build",
+    downloadBuild: "Download the build",
     galleryShot: "Screenshot",
     galleryPrev: "Previous screenshot",
     galleryNext: "Next screenshot",
@@ -170,6 +179,15 @@ const es: Dictionary = {
     toolsSubtitle:
       "Extensiones de editor que sacan la fricción del día a día de construir un juego.",
     toolProblem: "El problema",
+    multiplayerLabel: "Multijugador",
+    multiplayerSubtitle:
+      "Prototipos en red con Photon Fusion: el mismo prototipo bajo las dos topologías de Fusion, para que lo que se muestre sea la decisión de netcode.",
+    topology: {
+      shared: "Shared Mode",
+      host: "Host / Client",
+    },
+    playBuild: "Jugar el build",
+    downloadBuild: "Descargar el build",
     galleryShot: "Captura",
     galleryPrev: "Captura anterior",
     galleryNext: "Captura siguiente",
