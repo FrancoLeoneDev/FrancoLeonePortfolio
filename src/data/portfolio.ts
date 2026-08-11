@@ -611,8 +611,8 @@ export interface Certification {
 }
 
 // Newest first. Empty renders nothing — the section falls back to the degree alone.
-// Course names are verbatim from the certificate, marketing exclamation included:
-// a credential is quoted, not rewritten.
+// Names match the certificate, except where Udemy's own title is a sales line: see
+// cert-unity-builder-defender. Don't rewrite the rest to match a house style.
 export const certifications: Certification[] = [
   {
     id: "cert-unity-lighting",
@@ -625,7 +625,10 @@ export const certifications: Certification[] = [
   },
   {
     id: "cert-unity-builder-defender",
-    name: "Learn to make an Awesome Builder-Defender game in Unity!",
+    // Certificate reads "Learn to make an Awesome Builder-Defender game in
+    // Unity!" — shortened here to drop the sales pitch. The verification link
+    // still shows the full title.
+    name: "Builder-Defender Game in Unity",
     issuer: "Udemy",
     instructor: "Code Monkey",
     year: "2025",
