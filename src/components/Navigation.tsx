@@ -6,13 +6,16 @@ import { personalInfo } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { LanguageToggle } from "@/components/LanguageToggle";
 
+// Mirrors the section order in app/page.tsx — the scroll spy below walks this
+// list in reverse, so it has to match the document or the highlight lies.
 const NAV_ITEMS = [
   { key: "home", href: "#home" },
   { key: "about", href: "#about" },
-  { key: "skills", href: "#skills" },
   { key: "games", href: "#games" },
   { key: "web", href: "#web" },
+  { key: "skills", href: "#skills" },
   { key: "experience", href: "#experience" },
+  { key: "education", href: "#education" },
   { key: "contact", href: "#contact" },
 ] as const;
 
@@ -79,8 +82,10 @@ export function Navigation() {
 
             {/* Right cluster: desktop links + language toggle + mobile menu button */}
             <div className="flex items-center gap-2">
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center gap-1">
+              {/* Desktop Navigation. Breaks at lg, not md: eight items in
+                  Spanish don't fit beside the logo and the language toggle in
+                  a 768px bar, so the hamburger stays up to 1024px. */}
+              <div className="hidden lg:flex items-center gap-1">
                 {NAV_ITEMS.map((item) => (
                   <motion.a
                     key={item.key}
@@ -110,7 +115,7 @@ export function Navigation() {
 
               {/* Mobile Menu Button */}
               <motion.button
-                className="md:hidden p-2 text-slate-600"
+                className="lg:hidden p-2 text-slate-600"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Menu"
                 whileTap={{ scale: 0.9 }}
@@ -143,7 +148,8 @@ export function Navigation() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu. `top` tracks the bar's own height (h-16 md:h-20) so the
+          panel never overlaps it now that it can open above the md breakpoint. */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -151,7 +157,7 @@ export function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 md:hidden bg-white/95 backdrop-blur-lg shadow-lg"
+            className="fixed inset-x-0 top-16 md:top-20 z-40 lg:hidden bg-white/95 backdrop-blur-lg shadow-lg"
           >
             <div className="px-6 py-4 space-y-2">
               {NAV_ITEMS.map((item, index) => (

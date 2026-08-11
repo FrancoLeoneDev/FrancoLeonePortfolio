@@ -11,6 +11,7 @@ const en = {
     games: "Games",
     web: "Web",
     experience: "Experience",
+    education: "Education",
     contact: "Contact",
   },
   hero: {
@@ -75,6 +76,17 @@ const en = {
       "My professional journey and the roles that have shaped my career.",
     comingSoon: "Experience details coming soon...",
   },
+  education: {
+    heading: "Education",
+    subtitle:
+      "My formal training, and the courses I keep taking to stay current.",
+    graduate: "Graduate",
+    certificationsLabel: "Certifications",
+    certificationsSubtitle:
+      "Courses completed outside the classroom, each with its verification link.",
+    by: "by",
+    viewCredential: "View credential",
+  },
   contact: {
     heading: "Get In Touch",
     subtitle:
@@ -107,6 +119,7 @@ const es: Dictionary = {
     games: "Juegos",
     web: "Web",
     experience: "Experiencia",
+    education: "Estudios",
     contact: "Contacto",
   },
   hero: {
@@ -170,6 +183,17 @@ const es: Dictionary = {
     subtitle:
       "Mi recorrido profesional y los roles que dieron forma a mi carrera.",
     comingSoon: "Detalles de experiencia próximamente...",
+  },
+  education: {
+    heading: "Estudios",
+    subtitle:
+      "Mi formación formal y los cursos con los que sigo actualizándome.",
+    graduate: "Graduado",
+    certificationsLabel: "Certificaciones",
+    certificationsSubtitle:
+      "Cursos completados fuera del aula, cada uno con su link de verificación.",
+    by: "por",
+    viewCredential: "Ver certificado",
   },
   contact: {
     heading: "Hablemos",

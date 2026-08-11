@@ -549,6 +549,118 @@ export const experiences: Experience[] = [
   },
 ];
 
+/**
+ * Formal study. `period` is optional and year-only when present, matching the
+ * convention in `experiences` — an unknown year renders as no badge at all
+ * rather than as a guess. `description` is optional for the same reason.
+ */
+export interface Education {
+  id: string;
+  degree: Localized;
+  institution: string;
+  /** The programme page. Present turns the institution name into a link. */
+  url?: string;
+  location: string;
+  period?: Localized;
+  description?: Localized;
+}
+
+// The formal degree. Kept as an array so a second one drops in without touching
+// the component, but the section is designed around this being the headline item.
+export const education: Education[] = [
+  {
+    id: "edu-davinci",
+    degree: {
+      en: "Higher Technical Degree in Virtual Simulator Design and Programming",
+      es: "Técnico Superior en Diseño y Programación de Simuladores Virtuales",
+    },
+    institution: "Escuela Da Vinci",
+    url: "https://davinci.edu.ar/carreras/diseno-y-programacion-de-videojuegos",
+    location: "Buenos Aires, Argentina",
+    period: { en: "2022 - 2026", es: "2022 - 2026" },
+    // Drawn from the programme's own curriculum, picking the engine- and
+    // programming-heavy subjects: they are what connects the degree to the
+    // gameplay systems and editor tools shown earlier on the page.
+    description: {
+      en: "A three-year official degree built around engine programming and simulation: engine application and engine programming, Artificial Intelligence I and II, models and algorithms, applied physics, network development and level design, closing with a final project. It is the formal grounding under the gameplay systems and editor tools shown above.",
+      es: "Carrera oficial de tres años centrada en la programación de motores y la simulación: Aplicación de Motores y Programación de Motores, Inteligencia Artificial I y II, Modelos y Algoritmos, física aplicada, desarrollo para redes y diseño de niveles, cerrada con un proyecto final. Es la base formal de los sistemas de gameplay y las herramientas de editor que muestro más arriba.",
+    },
+  },
+];
+
+/**
+ * A course certificate — the second tier of the Education section, rendered
+ * smaller than the degree on purpose so a 12-hour course never reads at the
+ * same rank as a three-year title.
+ *
+ * `credentialUrl` is the public verification link the platform issues and is
+ * what the card links to when present — it proves the certificate, which a file
+ * anyone could produce does not. `image` (/certificates/<id>.jpg) is the
+ * fallback link target for courses that never issued a verifiable URL. With
+ * neither, the card renders as plain text.
+ */
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  /** Who taught it. Worth showing when the name carries weight in the field. */
+  instructor?: string;
+  year?: string;
+  credentialUrl?: string;
+  image?: string;
+}
+
+// Newest first. Empty renders nothing — the section falls back to the degree alone.
+// Course names are verbatim from the certificate, marketing exclamation included:
+// a credential is quoted, not rewritten.
+export const certifications: Certification[] = [
+  {
+    id: "cert-unity-lighting",
+    name: "Lighting in Unity",
+    issuer: "Udemy",
+    instructor: "Pete Jepson",
+    year: "2026",
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-7bfad179-48d3-4933-a372-edc313821fca/",
+  },
+  {
+    id: "cert-unity-builder-defender",
+    name: "Learn to make an Awesome Builder-Defender game in Unity!",
+    issuer: "Udemy",
+    instructor: "Code Monkey",
+    year: "2025",
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-3d29240d-ecf1-4b8a-af90-7f05d08f7ea8/",
+  },
+  {
+    id: "cert-unity-dialogue-quests",
+    name: "Unity Dialogue & Quests: Intermediate C# Game Coding",
+    issuer: "Udemy",
+    instructor: "Rick Davidson, GameDev.tv Team",
+    year: "2025",
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-ed4b5d15-ce61-477f-9880-adac712e8806/",
+  },
+  {
+    id: "cert-unity-turn-based",
+    name: "Unity Turn-Based Strategy Game: Intermediate C# Coding",
+    issuer: "Udemy",
+    instructor: "GameDev.tv Team, Code Monkey",
+    year: "2025",
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-9f9d36f4-6ffe-41a3-a220-8043277fe8d1/",
+  },
+  {
+    id: "cert-unity-parkour",
+    name: "Unity Parkour & Climbing System",
+    issuer: "Udemy",
+    instructor: "Fantacode Studios",
+    year: "2025",
+    credentialUrl:
+      "https://www.udemy.com/certificate/UC-fe0e098b-b679-4bda-8d69-1969124aadab/",
+  },
+];
+
 // Key order drives the render order of the Skills section — game-dev first.
 export const skillCategories = {
   gamedev: "Game Development",

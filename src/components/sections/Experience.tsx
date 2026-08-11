@@ -7,7 +7,7 @@ import { useLanguage } from "@/i18n/LanguageProvider";
 export function Experience() {
   const { t, pick } = useLanguage();
   return (
-    <section id="experience" className="py-24 md:py-32 overflow-hidden">
+    <section id="experience" className="py-24 md:py-32 bg-slate-50/50 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
