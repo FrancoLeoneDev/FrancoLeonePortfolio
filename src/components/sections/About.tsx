@@ -54,10 +54,9 @@ export function About() {
                 transition={{ delay: 0.4, duration: 0.6 }}
               />
 
-              {/* Portrait. The source is a 640x640 square from WhatsApp, so it
-                  fills this square slot exactly; object-top keeps the crop on
-                  the face. A higher-resolution original drops in with no other
-                  change. */}
+              {/* Portrait. The source is a 960x960 square cropped from a 3:4
+                  original, so it fills this square slot exactly; object-top
+                  keeps the crop on the face if the aspect ever drifts. */}
               <motion.div
                 className="relative rounded-2xl aspect-square overflow-hidden bg-slate-100"
                 initial={{ opacity: 0, scale: 0.9 }}
