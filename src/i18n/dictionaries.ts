@@ -30,7 +30,7 @@ const en = {
   about: {
     heading: "About Me",
     statWeb: "Web Projects",
-    statGames: "Game Projects",
+    statSystems: "Gameplay Systems",
     statTech: "Technologies",
   },
   skills: {
@@ -158,7 +158,7 @@ const es: Dictionary = {
   about: {
     heading: "Sobre mí",
     statWeb: "Proyectos web",
-    statGames: "Proyectos de juegos",
+    statSystems: "Sistemas de gameplay",
     statTech: "Tecnologías",
   },
   skills: {
