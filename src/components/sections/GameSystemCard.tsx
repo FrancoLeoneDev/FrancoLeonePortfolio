@@ -61,7 +61,7 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
           >
             <source src={system.video} type="video/mp4" />
           </video>
-        ) : (
+        ) : system.poster ? (
           <Image
             src={system.poster}
             alt={pick(system.title)}
@@ -69,6 +69,19 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
+        ) : (
+          // A system with no on-screen surface still keeps the frame, so the card
+          // holds the same silhouette as the ones beside it in the grid. Stating
+          // the reason beats both an empty box, which reads as a broken image, and
+          // a staged capture, which would be showing something that does not exist.
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-6 text-center">
+            <span aria-hidden="true" className="font-mono text-3xl text-slate-600">
+              {"{ }"}
+            </span>
+            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+              {t.games.systemNoInterface}
+            </span>
+          </div>
         )}
 
         {/* Several clips have their own UI burned into the frame near the top ("Large Item",

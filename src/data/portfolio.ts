@@ -361,7 +361,13 @@ export interface GameSystem {
    */
   project?: string;
   description: Localized;
-  poster: string; // /systems/<id>.jpg — shown as video poster and as fallback when no video
+  /**
+   * /systems/<id>.jpg — shown as video poster and as fallback when no video.
+   * Optional because a system with no on-screen surface has nothing honest to
+   * put here: a save system is proved by the game reloading, not by a frame.
+   * The card draws a stated placeholder rather than a staged capture.
+   */
+  poster?: string;
   video?: string; // /systems/<id>.mp4 — optional inline clip
   tags: string[];
   linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
@@ -519,6 +525,23 @@ export const gameSystems: GameSystem[] = [
     tags: ["C#", "Physics", "HingeJoint", "Collision Layers"],
     githubUrl:
       "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/02-physics-door",
+    engine: "unity",
+  },
+  {
+    id: "save-system",
+    title: {
+      en: "Save System",
+      es: "Sistema de Guardado",
+    },
+    project: "Memora",
+    description: {
+      en: "A JSON save system in Unity (C#): every object in the world decides what persists by implementing an interface, and a component with a stable GUID collects the state of everything sitting on it. It writes to a temporary file first and uses File.Replace, which is atomic and produces the backup in the same operation — if the main file is missing or fails to parse, it recovers itself from the backup. Restoring is multi-pass with a hard cap, because restoring one object can create another: the printer turns a photo on, the lamp instantiates a bulb, and those new arrivals need their state too. It includes a gate that suspends saving while a scripted sequence is running, so no checkpoint can land halfway through a moment and leave the game in an inconsistent state.",
+      es: "Sistema de guardado en JSON hecho en Unity (C#): cada objeto del mundo decide qué persiste implementando una interfaz, y un componente con GUID estable recolecta el estado de todo lo que tiene encima. Escribe primero a un temporal y usa File.Replace, que es atómico y genera el backup en la misma operación — si el archivo principal falta o no parsea, se recupera solo del backup. La restauración es multi-pasada con tope duro, porque restaurar un objeto puede crear otro: la impresora enciende una foto, la lámpara instancia un bulbo, y esos aparecidos también necesitan su estado. Incluye una compuerta que suspende el guardado mientras corre una secuencia scripteada, para que ningún checkpoint caiga a mitad de un momento y deje la partida en un estado inconsistente.",
+    },
+    // No poster and no video on purpose: this one never appears on screen.
+    tags: ["C#", "JSON Serialization", "Atomic Writes", "Interface-Driven"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/10-save-system",
     engine: "unity",
   },
   {

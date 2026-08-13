@@ -88,6 +88,7 @@ const en = {
     playDemo: "Play the demo",
     viewOnLinkedin: "View on LinkedIn",
     viewOnGithub: "View on GitHub",
+    systemNoInterface: "Internal system — no on-screen interface",
     statusInProgress: "In Progress",
   },
   experience: {
@@ -216,6 +217,7 @@ const es: Dictionary = {
     playDemo: "Jugar la demo",
     viewOnLinkedin: "Ver en LinkedIn",
     viewOnGithub: "Ver en GitHub",
+    systemNoInterface: "Sistema interno — sin interfaz en pantalla",
     statusInProgress: "En progreso",
   },
   experience: {
