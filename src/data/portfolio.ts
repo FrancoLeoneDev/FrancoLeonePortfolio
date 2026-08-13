@@ -128,6 +128,13 @@ const ABK_SOLO: ProjectCredit = {
   role: { en: "Sole developer", es: "Único desarrollador" },
 };
 
+// A site built for someone else with no company in between: the client's own
+// name goes in the org slot, because "Own project" would claim work that isn't mine.
+const LUCAS_CLIENT: ProjectCredit = {
+  org: "Lucas Nocquet",
+  role: { en: "Sole developer", es: "Único desarrollador" },
+};
+
 const NIMBEX_FULLSTACK: ProjectCredit = {
   org: "Nimbex Labs",
   role: { en: "Full stack, in a team", es: "Full stack, en equipo" },
@@ -182,6 +189,21 @@ export const projects: Project[] = [
     status: "completed",
     featured: true,
     credit: SOLO,
+  },
+  {
+    id: "lucas-nocquet",
+    title: "Lucas Nocquet - 3D Artist Portfolio",
+    description: {
+      en: "Portfolio site for a 3D artist and game designer of virtual simulators. A dark single-page build in Next.js with an EN/ES switch that runs entirely client-side — no routing, no middleware, the choice kept in localStorage — so every string, content included, is typed as a localized pair. The headline project gets a full-width spotlight above the regular grid; the 3D models gallery links each render straight to its Sketchfab viewer; and the skills board, the education timeline and the certifications each get their own section. Static export deployed on Vercel.",
+      es: "Sitio de portfolio para un artista 3D y diseñador de juegos de simuladores virtuales. Una single-page oscura hecha en Next.js con un switch EN/ES que corre entero del lado del cliente —sin routing ni middleware, con la elección guardada en localStorage—, así que cada string del sitio, contenido incluido, está tipado como un par localizado. El proyecto principal tiene una tarjeta destacada a todo el ancho arriba de la grilla; la galería de modelos 3D linkea cada render directo a su visor de Sketchfab; y el tablero de skills, la línea de tiempo de formación y las certificaciones tienen cada uno su propia sección. Export estático desplegado en Vercel.",
+    },
+    image: "/projects/lucas-nocquet.jpg",
+    tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Framer Motion", "Vercel", "i18n", "Portfolio"],
+    liveUrl: "https://lucas-nocquet-portfolio.vercel.app/",
+    githubUrl: "https://github.com/FrancoLeoneDev/lucas-nocquet-portfolio",
+    status: "completed",
+    featured: true,
+    credit: LUCAS_CLIENT,
   },
   {
     id: "aifa",
