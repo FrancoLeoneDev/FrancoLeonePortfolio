@@ -257,15 +257,26 @@ export const featuredGame: Project = {
     es: "Juego de terror ambientado en los años 90, hecho en Unity y en desarrollo: una mansión y un hospital para explorar, construido alrededor de fotos viejas y los recuerdos que guardan. Los puzzles están en los lugares mismos y los eventos de terror se montan sobre ellos. Las tarjetas marcadas como Memora más abajo en esta sección son los sistemas que lo hacen funcionar.",
   },
   image: "/projects/memora.jpg",
-  // Opens on the title card, then the environments grouped by location — the two settings named
-  // in the description. Append here to add more; the carousel's dots and arrows appear on their
-  // own past one frame. `caption` is optional and unused here.
+  // Opens on the title card, then the mansion, then the systems the description points at
+  // (the photograph, a puzzle, the in-game PC), then the hospital — so the run reads as the
+  // game's own arc and not as a folder of screenshots. The gallery advances on its own, which
+  // is why the order matters more than it used to. Append here to add more; the carousel's
+  // dots and arrows appear on their own past one frame. `caption` is optional and unused here.
   images: [
-    { src: "/projects/memora.jpg" },
-    { src: "/projects/memora/mansion-living.jpg" },
+    // The same logo as `image` above, letterboxed on black at 16:9 instead of cropped from the
+    // square: full-bleed cover on a frame this size blew the 640px mark up past its own
+    // resolution and cut the drips off the bottom.
+    { src: "/projects/memora/title-card.jpg" },
     { src: "/projects/memora/mansion-corridor.jpg" },
+    { src: "/projects/memora/mansion-lit-door.jpg" },
+    { src: "/projects/memora/photo-examine.jpg" },
+    { src: "/projects/memora/bulb-puzzle.jpg" },
+    // PNG, not JPEG: flat 90s UI with hard edges, where JPEG ringing shows and the
+    // lossless file is no bigger.
+    { src: "/projects/memora/pc-inbox.png" },
     { src: "/projects/memora/hospital-corridor.jpg" },
-    { src: "/projects/memora/hospital-lobby.jpg" },
+    { src: "/projects/memora/hospital-dark-figure.jpg" },
+    { src: "/projects/memora/hospital-nursery.jpg" },
   ],
   tags: ["C#", "Game Development", "Horror"],
   liveUrl: "https://memoraoficial.itch.io/memora",

@@ -13,28 +13,42 @@ import { useSnapCarousel } from "@/components/ui/useSnapCarousel";
  * strip would eat the frame the art needs.
  *
  * Captions are optional and render only when present.
+ *
+ * It advances on its own: this is the one place on the page big enough that a still frame wastes
+ * it, and a visitor who never touches the arrows still gets to see the game. Hovering stops it —
+ * the moment someone is actually looking at a frame is the worst moment to take it away.
  */
+const AUTOPLAY_MS = 5000;
+
 export function FeaturedGameGallery({ shots, title }: { shots: GameShot[]; title: string }) {
   const { t, pick } = useLanguage();
-  const { trackRef, active, goTo } = useSnapCarousel(shots.length);
+  const { trackRef, active, goTo, hold } = useSnapCarousel(shots.length, AUTOPLAY_MS);
   const caption = shots[active]?.caption;
 
   return (
     // No `group` of its own: the arrows reveal on hovering the card, whose article carries it.
-    <div className="absolute inset-0">
+    <div className="absolute inset-0" {...hold}>
       <div
         ref={trackRef}
         className="flex h-full snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
+        {/* `overflow-hidden` per slide, not just on the track: the hover zoom below scales each
+            image about its centre, so without it the neighbouring frame spills a couple of dozen
+            pixels into this one along the seam. */}
         {shots.map((shot, index) => (
-          <div key={shot.src} data-index={index} className="relative h-full w-full shrink-0 snap-center">
+          <div
+            key={shot.src}
+            data-index={index}
+            className="relative h-full w-full shrink-0 snap-center overflow-hidden"
+          >
             <Image
               src={shot.src}
               alt={shot.caption ? `${title} — ${pick(shot.caption)}` : title}
               fill
               loading={index === 0 ? "eager" : "lazy"}
               className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              // The card spans the section now, so the frame is the full column at every width.
+              sizes="(max-width: 1152px) 100vw, 1104px"
             />
           </div>
         ))}
@@ -42,18 +56,25 @@ export function FeaturedGameGallery({ shots, title }: { shots: GameShot[]; title
 
       {shots.length > 1 && (
         <>
+          {/* Both arrows wrap and neither is ever disabled: the gallery already loops on its
+              own, so an arrow that dead-ends on the last frame would contradict what the
+              visitor just watched it do. */}
           <CarouselArrow
             side="left"
             label={t.games.galleryPrev}
-            disabled={active === 0}
-            onClick={() => goTo(active - 1)}
+            onClick={() => goTo((active - 1 + shots.length) % shots.length)}
           />
           <CarouselArrow
             side="right"
             label={t.games.galleryNext}
-            disabled={active === shots.length - 1}
-            onClick={() => goTo(active + 1)}
+            onClick={() => goTo((active + 1) % shots.length)}
           />
+
+          {/* Position, spelled out. Nine frames is more than the dots read at a glance, and it
+              tells someone who just landed that there is a lot more game behind this one. */}
+          <div className="pointer-events-none absolute right-4 top-4 z-10 rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium tabular-nums text-white/90 backdrop-blur-sm">
+            {active + 1} / {shots.length}
+          </div>
 
           {/* Bottom scrim carries both the dots and any caption, so neither depends on how bright
               the underlying frame happens to be. */}

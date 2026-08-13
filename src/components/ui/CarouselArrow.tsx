@@ -1,6 +1,10 @@
 "use client";
 
-/** Prev/next control for a snap carousel. Hidden below `sm`, where swiping is the natural gesture. */
+/**
+ * Prev/next control for a snap carousel. Hidden below `sm`, where swiping is the natural gesture.
+ *
+ * `disabled` is optional: a gallery that wraps has no dead end to grey out.
+ */
 export function CarouselArrow({
   side,
   label,
@@ -9,7 +13,7 @@ export function CarouselArrow({
 }: {
   side: "left" | "right";
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }) {
   return (

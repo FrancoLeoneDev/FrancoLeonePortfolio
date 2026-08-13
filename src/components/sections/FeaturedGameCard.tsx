@@ -15,11 +15,13 @@ export function FeaturedGameCard({ game }: { game: Project }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group grid md:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100"
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100"
       whileHover={{ boxShadow: "0 25px 50px -12px rgba(0,0,0,0.15)" }}
     >
-      {/* Media */}
-      <div className="relative h-64 md:h-full min-h-[16rem] overflow-hidden">
+      {/* Media. Full width and 16:9 — the shape the screenshots were captured in — rather than
+          half of a two-column card: this is the one game with a real gallery behind it, and at
+          half width the frames were too small to be worth looking at. The copy reads underneath. */}
+      <div className="relative aspect-video w-full overflow-hidden">
         {/* Falls back to the single `image` so a project without a gallery renders unchanged. */}
         <FeaturedGameGallery
           shots={game.images ?? [{ src: game.image }]}
@@ -44,10 +46,12 @@ export function FeaturedGameCard({ game }: { game: Project }) {
       </div>
 
       {/* Content */}
-      <div className="p-8 flex flex-col justify-center">
+      <div className="p-8 md:p-10 flex flex-col">
         {/* h4: the block label above this card is the h3. */}
-        <h4 className="text-2xl font-bold text-slate-900 mb-3">{game.title}</h4>
-        <p className="text-slate-600 mb-6 leading-relaxed">{pick(game.description)}</p>
+        <h4 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">{game.title}</h4>
+        {/* Capped: the card is the full section wide now, and the description is long enough
+            that an uncapped line here would run past what anyone reads comfortably. */}
+        <p className="max-w-3xl text-slate-600 mb-6 leading-relaxed">{pick(game.description)}</p>
 
         <div className="flex flex-wrap gap-2 mb-6">
           {game.tags.map((tag) => (
