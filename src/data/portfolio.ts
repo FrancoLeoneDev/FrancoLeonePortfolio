@@ -365,6 +365,14 @@ export interface GameSystem {
   video?: string; // /systems/<id>.mp4 — optional inline clip
   tags: string[];
   linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
+  /**
+   * Deep link into the system's own folder in the published repo, where its README
+   * is what GitHub renders. Always /tree/HEAD/<folder>, never /tree/main/: HEAD
+   * resolves to whatever the default branch is called, so renaming it later does
+   * not rot every link here. Button hidden when empty/absent — the Unreal systems
+   * and the ListOf20 board are not in that repo.
+   */
+  githubUrl?: string;
   engine: EngineKey;
 }
 
@@ -383,6 +391,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/memory-dive.jpg",
     video: "/systems/memory-dive.mp4",
     tags: ["C#", "HDRP Custom Pass", "Shaders", "Additive Loading"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/01-memory-dive",
     engine: "unity",
   },
   {
@@ -399,6 +409,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/document-reading.jpg",
     video: "/systems/document-reading.mp4",
     tags: ["C#", "First-Person Camera", "UI"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/07-document-reading",
     engine: "unity",
   },
   {
@@ -415,6 +427,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/in-game-pc.jpg",
     video: "/systems/in-game-pc.mp4",
     tags: ["C#", "Canvas / uGUI", "Render Textures", "Save System"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/08-in-game-pc",
     engine: "unity",
   },
   {
@@ -431,6 +445,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/chain-examine.jpg",
     video: "/systems/chain-examine.mp4",
     tags: ["C#", "Raycasting", "Interaction"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/06-chain-examine",
     engine: "unity",
   },
   {
@@ -447,6 +463,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/inventory.jpg",
     video: "/systems/inventory.mp4",
     tags: ["C#", "UI", "3D Preview", "Save System"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/05-inventory",
     engine: "unity",
   },
   {
@@ -463,6 +481,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/interactions-menu.jpg",
     video: "/systems/interactions-menu.mp4",
     tags: ["C#", "Interface-Driven", "UI", "Inventory"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/04-interactions-menu",
     engine: "unity",
   },
   {
@@ -479,6 +499,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/scripted-set-piece.jpg",
     video: "/systems/scripted-set-piece.mp4",
     tags: ["C#", "Sequencing", "Lighting", "Audio Sync"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/09-scripted-set-piece",
     engine: "unity",
   },
   {
@@ -495,6 +517,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/physics-door.jpg",
     video: "/systems/physics-door.mp4",
     tags: ["C#", "Physics", "HingeJoint", "Collision Layers"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/02-physics-door",
     engine: "unity",
   },
   {
@@ -638,6 +662,8 @@ export const debugTools: DebugTool[] = [
       },
     ],
     tags: ["C#", "EditMode Tests", "Dependency Injection", "Pure C# Core"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/director-core",
   },
   {
     id: "lock-editor",
@@ -671,6 +697,8 @@ export const debugTools: DebugTool[] = [
       },
     ],
     tags: ["C#", "Custom Editor", "Scene Handles", "Level Authoring"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/03-key-and-lock",
   },
   {
     id: "authoring-gizmos",
@@ -703,6 +731,8 @@ export const debugTools: DebugTool[] = [
       },
     ],
     tags: ["C#", "Editor Scripting", "Scene Gizmos", "Level Authoring"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/editor-tools",
   },
   {
     id: "jump-to",
@@ -736,6 +766,8 @@ export const debugTools: DebugTool[] = [
       },
     ],
     tags: ["C#", "Editor Scripting", "Scene Loading", "Iteration Speed"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unity-gameplay-systems-memora/tree/HEAD/editor-tools",
   },
 ];
 

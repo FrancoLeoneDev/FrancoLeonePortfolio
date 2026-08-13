@@ -142,9 +142,14 @@ export function GameSystemCard({ system, index }: { system: GameSystem; index: n
           ))}
         </div>
 
-        {system.linkedinUrl && (
-          <div className="mt-auto">
-            <ResourceLink kind="linkedin" href={system.linkedinUrl} />
+        {/* Same row treatment as the debug-tool cards: a system can carry both the
+            repo and the write-up, and they belong side by side at the foot of the
+            card rather than stacked. mt-auto keeps the row pinned to the bottom so
+            it lines up across a grid of cards with different description lengths. */}
+        {(system.githubUrl || system.linkedinUrl) && (
+          <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2">
+            {system.githubUrl && <ResourceLink kind="github" href={system.githubUrl} />}
+            {system.linkedinUrl && <ResourceLink kind="linkedin" href={system.linkedinUrl} />}
           </div>
         )}
       </div>
