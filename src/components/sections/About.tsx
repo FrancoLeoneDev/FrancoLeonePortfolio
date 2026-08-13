@@ -124,12 +124,12 @@ export function About() {
               >
                 {/* These count what the rest of the page actually shows, so
                     they have to be updated alongside the data: gameSystems +
-                    debugTools + editorTools (17), projects (7), skills (24).
+                    debugTools + editorTools (18), projects (8), skills (24).
                     A number the visitor can disprove two scrolls down is worse
                     than a smaller honest one. */}
                 {[
                   { label: t.about.statSystems, value: "15+" },
-                  { label: t.about.statWeb, value: "7" },
+                  { label: t.about.statWeb, value: "8" },
                   { label: t.about.statTech, value: "20+" },
                 ].map((stat, index) => (
                   <motion.div
