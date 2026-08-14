@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import {
   debugTools,
   editorTools,
@@ -17,9 +18,48 @@ import { FeaturedGameCard } from "./FeaturedGameCard";
 import { GameSystemCard } from "./GameSystemCard";
 import { MultiplayerProjectCard } from "./MultiplayerProjectCard";
 import { UpcomingGameCard } from "./UpcomingGameCard";
+import { FilterChips } from "@/components/ui/FilterChips";
+
+/**
+ * Only the gameplay systems are filterable. Debug and editor tools are already
+ * their own sections and are all Unity, so a filter there would be a control
+ * that never changes anything.
+ *
+ * Engine and game share one row even though they are different dimensions,
+ * because the union reads naturally ("Unity or Memora") and two rows would be
+ * more chrome than twelve cards deserve. Two systems carry no game, so a
+ * game-only selection hides them — correct, and recoverable by clearing.
+ */
+const SYSTEM_FILTERS: {
+  id: string;
+  label: string;
+  matches: (s: (typeof gameSystems)[number]) => boolean;
+}[] = [
+  { id: "unity", label: "Unity", matches: (s) => s.engine === "unity" },
+  { id: "unreal", label: "Unreal", matches: (s) => s.engine === "unreal" },
+  { id: "memora", label: "Memora", matches: (s) => s.project === "Memora" },
+  { id: "listof20", label: "ListOf20", matches: (s) => s.project === "ListOf20" },
+];
 
 export function GameDev() {
   const { t } = useLanguage();
+  const [systemFilters, setSystemFilters] = useState<string[]>([]);
+
+  const systemOptions = useMemo(
+    () =>
+      SYSTEM_FILTERS.map((f) => ({
+        id: f.id,
+        label: f.label,
+        count: gameSystems.filter(f.matches).length,
+      })),
+    [],
+  );
+
+  const visibleSystems = useMemo(() => {
+    if (systemFilters.length === 0) return gameSystems;
+    const active = SYSTEM_FILTERS.filter((f) => systemFilters.includes(f.id));
+    return gameSystems.filter((s) => active.some((f) => f.matches(s)));
+  }, [systemFilters]);
 
   return (
     <section id="games" className="py-24 md:py-32 overflow-hidden">
@@ -107,11 +147,23 @@ export function GameDev() {
           >
             {t.games.systemsSubtitle}
           </motion.p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gameSystems.map((system, index) => (
-              <GameSystemCard key={system.id} system={system} index={index} />
-            ))}
-          </div>
+          <FilterChips
+            options={systemOptions}
+            selected={systemFilters}
+            onChange={setSystemFilters}
+            allLabel={t.games.systemsFilterAll}
+            totalCount={gameSystems.length}
+            ariaLabel={t.games.systemsFilterLabel}
+          />
+          <LayoutGroup>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <AnimatePresence mode="popLayout">
+                {visibleSystems.map((system, index) => (
+                  <GameSystemCard key={system.id} system={system} index={index} />
+                ))}
+              </AnimatePresence>
+            </div>
+          </LayoutGroup>
         </div>
 
         {/* Testing & Debug Tools. Before the published tools on purpose: internal

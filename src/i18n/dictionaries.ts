@@ -56,6 +56,8 @@ const en = {
     readMore: "Read more",
     showLess: "Show less",
     viewMore: "View more on GitHub",
+    filterAll: "All",
+    filterLabel: "Filter projects by stack",
   },
   games: {
     heading: "Game Development",
@@ -64,6 +66,8 @@ const en = {
     featuredGameLabel: "Featured Game",
     systemsLabel: "Gameplay Systems",
     systemsSubtitle: "Individual gameplay systems built in Unity (C#) and Unreal Engine (C++).",
+    systemsFilterAll: "All",
+    systemsFilterLabel: "Filter gameplay systems by engine and game",
     debugToolsLabel: "Testing & Debug Tools",
     debugToolsSubtitle:
       "Internal tools for iterating on systems and verifying them without friction. Being able to test a change in seconds instead of minutes changes how many times you test it, and that ends up showing in the result.",
@@ -185,6 +189,8 @@ const es: Dictionary = {
     readMore: "Ver más",
     showLess: "Ver menos",
     viewMore: "Ver más en GitHub",
+    filterAll: "Todos",
+    filterLabel: "Filtrar proyectos por stack",
   },
   games: {
     heading: "Desarrollo de Videojuegos",
@@ -193,6 +199,8 @@ const es: Dictionary = {
     featuredGameLabel: "Juego destacado",
     systemsLabel: "Sistemas de Gameplay",
     systemsSubtitle: "Sistemas individuales construidos en Unity (C#) y Unreal Engine (C++).",
+    systemsFilterAll: "Todos",
+    systemsFilterLabel: "Filtrar sistemas de gameplay por motor y juego",
     debugToolsLabel: "Testing & Debug Tools",
     debugToolsSubtitle:
       "Herramientas internas para iterar y verificar sistemas sin fricción. Poder probar un cambio en segundos en vez de minutos cambia cuántas veces lo probás, y eso termina notándose en el resultado.",
