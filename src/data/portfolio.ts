@@ -58,6 +58,7 @@ export const skills: Skill[] = [
   // Frontend
   { name: "React", iconKey: "React", category: "frontend" },
   { name: "Next.js", iconKey: "NextJS", category: "frontend" },
+  { name: "Vue.js", iconKey: "Vue", category: "frontend" },
   { name: "HTML", iconKey: "HTML", category: "frontend" },
   { name: "CSS", iconKey: "CSS", category: "frontend" },
   { name: "Tailwind CSS", iconKey: "TailwindCSS", category: "frontend" },
@@ -69,7 +70,9 @@ export const skills: Skill[] = [
   { name: "Node.js", iconKey: "NodeJS", category: "backend" },
   { name: "Python", iconKey: "Python", category: "backend" },
   { name: "PHP", iconKey: "PHP", category: "backend" },
+  { name: "Laravel", iconKey: "Laravel", category: "backend" },
   { name: "PostgreSQL", iconKey: "PostgreSQL", category: "backend" },
+  { name: "MySQL", iconKey: "MySQL", category: "backend" },
   { name: "Supabase", iconKey: "Supabase", category: "backend" },
 
   // Tools
@@ -140,9 +143,12 @@ const NIMBEX_FULLSTACK: ProjectCredit = {
   role: { en: "Full stack, in a team", es: "Full stack, en equipo" },
 };
 
+// Third-party work, not mine to claim: I helped out as an assistant, I didn't
+// build these. The role has to say so out loud — a visitor who reads "Laravel"
+// in the tags and assumes I shipped it was misled by this file, not by them.
 const DANTOFEMA: ProjectCredit = {
   org: "Dantofema",
-  role: { en: "In a team", es: "En equipo" },
+  role: { en: "Assistant, third-party project", es: "Ayudante, proyecto de terceros" },
 };
 
 // Ordered: own work first (it sells the strongest — full ownership), then the
@@ -172,6 +178,20 @@ export const projects: Project[] = [
     image: "/projects/papelera-bahia.jpg",
     tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "E-commerce"],
     liveUrl: "https://www.papelerabahia.com.ar",
+    status: "completed",
+    featured: true,
+    credit: ABK_SOLO,
+  },
+  {
+    id: "abk",
+    title: "ABK - Game Studio & Software Agency",
+    description: {
+      en: "Corporate site for ABK, the Argentine studio I do freelance work for, which runs two divisions under one roof: ABK Games, that develops and publishes its own titles, and ABK Solutions, that builds custom software for clients. The odd one out among my projects — no catalog, no cart, no checkout. It's a multi-page institutional site with a projects gallery that mixes games and client work in a single card system with per-division tagging, an areas section that splits the two halves of the business, a careers page, a news section, and an EN/ES switch. The hard part was structural rather than technical: finding one layout that presents a game studio and a software agency as the same company without either half reading as an afterthought.",
+      es: "Sitio corporativo de ABK, el estudio argentino para el que trabajo como freelance, que tiene dos divisiones bajo el mismo techo: ABK Games, que desarrolla y publica sus propios títulos, y ABK Solutions, que hace software a medida para clientes. Es el distinto entre mis proyectos: no tiene catálogo, ni carrito, ni checkout. Es un sitio institucional de varias páginas, con una galería de proyectos que mezcla juegos y trabajo para clientes en un mismo sistema de tarjetas etiquetadas por división, una sección de áreas que separa las dos mitades del negocio, una página de búsquedas laborales, una de novedades y un switch EN/ES. Lo difícil no fue técnico sino estructural: encontrar una sola estructura que presente a un estudio de videojuegos y a una agencia de software como la misma empresa, sin que ninguna de las dos mitades quede como un agregado.",
+    },
+    image: "/projects/abk.jpg",
+    tags: ["Next.js", "TypeScript", "React", "Supabase", "Tailwind CSS", "Framer Motion", "Vercel", "i18n", "Corporate Site"],
+    liveUrl: "https://www.weareabk.com/",
     status: "completed",
     featured: true,
     credit: ABK_SOLO,
@@ -236,12 +256,59 @@ export const projects: Project[] = [
     featured: true,
     credit: NIMBEX_FULLSTACK,
   },
+  // Own Laravel/Vue builds. Three deliberately different architectures rather than
+  // three CRUDs: a monolith, a decoupled API + SPA, and one where the hard part is
+  // business logic. TODO before shipping: add `liveUrl` and swap the placeholder
+  // image for a real screenshot once each one is deployed.
+  {
+    id: "laravel-vue-catalogo",
+    title: "Catálogo + Panel de Inventario",
+    description: {
+      en: "Catalog and inventory back office for a hardware store, built as a Laravel + Inertia + Vue 3 monolith on MySQL. The public side lists 38 products across 6 categories with search by name or SKU, category filters, sorting, server-side pagination, per-product stock and a low-stock warning; it also ships a light/dark/system theme switch. Behind the login sits the admin: products, categories and stock movements. The design decision I like most is that stock is not an editable field — it is derived from a movement table, so every change carries a reason and a date and the current figure can always be explained. Demo credentials are shown on the login screen and pre-filled, so anyone can walk into the panel.",
+      es: "Catálogo y panel de inventario para una ferretería, hecho como monolito Laravel + Inertia + Vue 3 sobre MySQL. Del lado público lista 38 productos en 6 categorías con búsqueda por nombre o SKU, filtros por categoría, ordenamiento, paginación resuelta en el servidor, stock por producto y aviso de últimas unidades; además tiene selector de tema claro, oscuro o del sistema. Detrás del login está el panel: productos, categorías y movimientos de stock. La decisión de diseño que más me gusta es que el stock no es un campo editable: se deriva de una tabla de movimientos, así cada cambio queda con motivo y fecha y el número actual siempre se puede explicar. Las credenciales de demostración están a la vista en el login y precargadas, así cualquiera puede entrar al panel.",
+    },
+    image: "/projects/laravel-vue-catalogo.jpg",
+    tags: ["Laravel", "PHP", "Vue.js", "Inertia", "MySQL", "Tailwind CSS", "Admin Panel"],
+    liveUrl: "https://laravel-vue-catalogo.vercel.app/",
+    githubUrl: "https://github.com/FrancoLeoneDev/laravel-vue-catalogo",
+    status: "completed",
+    featured: true,
+    credit: SOLO,
+  },
+  {
+    id: "laravel-api-vue-tareas",
+    title: "API REST + SPA de Gestión de Tareas",
+    description: {
+      en: "Project and task manager built with a deliberately decoupled architecture: a versioned Laravel REST API with token auth on one side, and a standalone Vue 3 SPA with Vue Router and Pinia consuming it on the other. The API returns API Resources rather than raw models, validates in Form Requests and authorizes with Policies, so a user cannot reach another user's projects. Queued jobs handle assignment notifications, and the Pest suite covers auth, the task CRUD and — the tests that matter most — that the authorization cannot be bypassed.",
+      es: "Gestor de proyectos y tareas con una arquitectura deliberadamente desacoplada: de un lado una API REST de Laravel versionada con autenticación por token, del otro una SPA de Vue 3 independiente, con Vue Router y Pinia, que la consume. La API devuelve API Resources en vez de modelos crudos, valida en Form Requests y autoriza con Policies, así un usuario no puede llegar a los proyectos de otro. Las notificaciones de asignación salen por jobs en cola, y la suite de Pest cubre autenticación, el CRUD de tareas y —los tests que más importan— que la autorización no se pueda saltear.",
+    },
+    image: "/projects/placeholder.jpg",
+    tags: ["Laravel", "PHP", "Vue.js", "Pinia", "REST API", "MySQL", "Pest"],
+    githubUrl: "https://github.com/FrancoLeoneDev/laravel-api-vue-tareas",
+    status: "in-progress",
+    featured: true,
+    credit: SOLO,
+  },
+  {
+    id: "laravel-vue-reservas",
+    title: "Sistema de Reservas de Turnos",
+    description: {
+      en: "Appointment booking for a service business, on Laravel + Inertia + Vue 3 with MySQL, split into a public booking flow, a customer area and an admin agenda. Available slots are computed from the business hours minus what is already booked and the service duration — they are not a pre-seeded table. The interesting part is preventing double booking: validating before inserting leaves a race window where two simultaneous requests both pass, so the booking is created inside a locking transaction, with a uniqueness constraint in the database as the last line of defence.",
+      es: "Reserva de turnos para un negocio de servicios, sobre Laravel + Inertia + Vue 3 con MySQL, dividido en un flujo público de reserva, un área de cliente y una agenda de administración. Los huecos disponibles se calculan a partir de la agenda del negocio menos lo ya reservado y la duración del servicio: no son una tabla precargada. Lo interesante es impedir la doble reserva: validar antes de insertar deja una ventana en la que dos pedidos simultáneos pasan los dos, así que la reserva se crea dentro de una transacción con bloqueo, más una restricción de unicidad en la base como última línea de defensa.",
+    },
+    image: "/projects/placeholder.jpg",
+    tags: ["Laravel", "PHP", "Vue.js", "Inertia", "MySQL", "Tailwind CSS", "Booking System"],
+    githubUrl: "https://github.com/FrancoLeoneDev/laravel-vue-reservas",
+    status: "in-progress",
+    featured: true,
+    credit: SOLO,
+  },
   {
     id: "dantofema",
     title: "Dantofema - Software Development Company",
     description: {
-      en: "Software development company website showcasing custom development services, consulting, and modernization solutions. Features service portfolio, client showcase, and contact system built with modern web technologies.",
-      es: "Sitio web de una empresa de desarrollo de software que muestra servicios de desarrollo a medida, consultoría y soluciones de modernización. Incluye portfolio de servicios, casos de clientes y sistema de contacto, construido con tecnologías web modernas.",
+      en: "Software development company website showcasing custom development services, consulting, and modernization solutions. Features service portfolio, client showcase, and contact system. A third-party project I did not build: I collaborated as an assistant, and it is shown here as exposure to the stack, not as my own work.",
+      es: "Sitio web de una empresa de desarrollo de software que muestra servicios de desarrollo a medida, consultoría y soluciones de modernización. Incluye portfolio de servicios, casos de clientes y sistema de contacto. Es un proyecto de terceros que no desarrollé: colaboré como ayudante, y figura acá como contacto con el stack, no como trabajo propio.",
     },
     image: "/projects/placeholder.jpg",
     tags: ["PHP", "Laravel", "MySQL", "JavaScript", "Vue.js"],
@@ -254,8 +321,8 @@ export const projects: Project[] = [
     id: "fiplatina",
     title: "FIP Latina Press - Journalism Portal",
     description: {
-      en: "News and information portal for the International Federation of Journalists in Latin America. Features journalism news, union updates, campaigns, and syndicated content with a focus on press freedom and journalists' rights.",
-      es: "Portal de noticias e información para la Federación Internacional de Periodistas en América Latina. Incluye noticias de periodismo, novedades sindicales, campañas y contenido sindicado, con foco en la libertad de prensa y los derechos de los periodistas.",
+      en: "News and information portal for the International Federation of Journalists in Latin America. Features journalism news, union updates, campaigns, and syndicated content with a focus on press freedom and journalists' rights. A third-party project I did not build: I collaborated as an assistant, and it is shown here as exposure to the stack, not as my own work.",
+      es: "Portal de noticias e información para la Federación Internacional de Periodistas en América Latina. Incluye noticias de periodismo, novedades sindicales, campañas y contenido sindicado, con foco en la libertad de prensa y los derechos de los periodistas. Es un proyecto de terceros que no desarrollé: colaboré como ayudante, y figura acá como contacto con el stack, no como trabajo propio.",
     },
     image: "/projects/placeholder.jpg",
     tags: ["Laravel", "PHP", "JavaScript", "CMS"],

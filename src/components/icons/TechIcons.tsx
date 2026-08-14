@@ -6,10 +6,13 @@ import {
   SiCss3,
   SiTailwindcss,
   SiFramer,
+  SiVuedotjs,
   SiNodedotjs,
   SiPython,
   SiPhp,
+  SiLaravel,
   SiPostgresql,
+  SiMysql,
   SiSupabase,
   SiUnity,
   SiUnrealengine,
@@ -35,12 +38,15 @@ export const TechIcons: Record<string, IconType> = {
   TailwindCSS: SiTailwindcss,
   FramerMotion: SiFramer,
   NextJS: SiNextdotjs,
+  Vue: SiVuedotjs,
 
   // Backend
   NodeJS: SiNodedotjs,
   Python: SiPython,
   PHP: SiPhp,
+  Laravel: SiLaravel,
   PostgreSQL: SiPostgresql,
+  MySQL: SiMysql,
   Supabase: SiSupabase,
 
   // Game Development
