@@ -152,27 +152,18 @@ export function Hero() {
           </motion.span>
         </motion.div>
 
-        {/* Name with character animation */}
-        <motion.h1
-          className="mt-8 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <motion.span
-            className="text-slate-900 inline"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+        {/* Name with character animation.
+            The headline chain runs on CSS classes, not framer-motion: the name is
+            the LCP element, and a JS-applied opacity:0 holds it unpainted until
+            hydration. Same reveal, off the critical path. Delays live in
+            globals.css alongside the keyframes. */}
+        <h1 className="hero-headline mt-8 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+          <span className="hero-greeting text-slate-900 inline">
             {t.hero.greeting}{" "}
-          </motion.span>
+          </span>
           <span className="relative inline">
             <motion.span
-              className="text-primary-600 inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              className="hero-name text-primary-600 inline-block"
               whileHover={{
                 scale: 1.05,
                 transition: { duration: 0.2 },
@@ -188,40 +179,21 @@ export function Hero() {
               style={{ originX: 0 }}
             />
           </span>
-        </motion.h1>
+        </h1>
 
         {/* Title with typing effect */}
-        <motion.p
-          className="mt-6 text-xl md:text-2xl lg:text-3xl text-slate-600 font-medium"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            {pick(personalInfo.title)}
-          </motion.span>
-        </motion.p>
+        <p className="hero-title mt-6 text-xl md:text-2xl lg:text-3xl text-slate-600 font-medium">
+          <span>{pick(personalInfo.title)}</span>
+        </p>
 
         {/* Subtitle */}
-        <motion.p
-          className="mt-4 text-lg md:text-xl text-slate-500 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.7, delay: 0.9 }}
-        >
+        <p className="hero-subtitle mt-4 text-lg md:text-xl text-slate-500 max-w-2xl mx-auto">
           {pick(personalInfo.subtitle)}
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
+        <div
+          className="hero-cta mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -254,7 +226,7 @@ export function Hero() {
               {t.hero.getInTouch}
             </Button>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Tech stack floating badges */}
         <motion.div

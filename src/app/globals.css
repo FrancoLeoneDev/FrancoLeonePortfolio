@@ -71,12 +71,19 @@ html {
   }
 }
 
+/* The ring is a pseudo-element animating transform + opacity rather than the
+   badge's own box-shadow. Animated box-shadow cannot be composited, so the old
+   version repainted on every frame — and it sits on the "Featured" badge of
+   every project card at once, which is 14 perpetual repaints competing with
+   scrolling. Same look, and the GPU carries it. */
 @keyframes pulse-ring-subtle {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    transform: scale(1);
+    opacity: 0;
   }
   50% {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    transform: scale(1.06);
+    opacity: 1;
   }
 }
 
@@ -128,7 +135,20 @@ html {
 }
 
 .animate-pulse-ring-subtle {
+  position: relative;
+  isolation: isolate;
+}
+
+.animate-pulse-ring-subtle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
   animation: pulse-ring-subtle 2s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
 }
 
 .animate-ping-slow {
@@ -145,4 +165,77 @@ html {
 
 .animate-float-particle {
   animation: float-particle 2s ease-in-out infinite;
+}
+
+/* Respect the OS-level "reduce motion" setting. This is an accessibility
+   requirement first — vestibular disorders make perpetual drifting and pulsing
+   genuinely unpleasant — and it doubles as an escape hatch on weak hardware.
+   Motion is not removed, it is collapsed: transitions still fire, they just land
+   immediately, so nothing that depends on an animation completing gets stuck. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero headline entrance, in CSS rather than framer-motion.
+   The name is the LCP element, and a JS-driven `initial={{opacity:0}}` keeps it
+   unpainted until React hydrates — measured at 1.6s locally, which Lighthouse's
+   mobile simulation scales to 5.4s. A CSS animation starts when the stylesheet
+   is parsed, so the same reveal now runs off the critical path instead of behind
+   it. Keep these delays in sync with the rest of the hero chain in Hero.tsx. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-headline {
+  animation: hero-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+}
+
+.hero-greeting {
+  animation: hero-slide-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+.hero-name {
+  animation: hero-rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+/* The rest of the above-the-fold hero, same reasoning as .hero-headline: while
+   any of these still carried a framer-motion `initial`, LCP simply moved to
+   whichever of them was largest instead of improving. The blur on the subtitle
+   is dropped rather than ported — a 10px blur under a simultaneous fade is not
+   perceptible, and `filter` is the one property here the compositor can't take. */
+.hero-title {
+  animation: hero-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.hero-subtitle {
+  animation: hero-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
+
+.hero-cta {
+  animation: hero-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
 }

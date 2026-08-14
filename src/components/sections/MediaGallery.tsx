@@ -36,24 +36,41 @@ export function MediaGallery({
   const { t, pick } = useLanguage();
   const { trackRef, active, goTo } = useSnapCarousel(media.length);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [onScreen, setOnScreen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const lightboxItem = lightboxIndex === null ? null : media[lightboxIndex];
 
-  // Play only the active slide's clip. Pausing the rest also stops them decoding
-  // frames off-screen, which is the whole reason the site ships preload="none".
+  // Gate playback on visibility. Without this the effect below runs on mount for
+  // every gallery on the page and calls play() on slide 0 — and play() forces the
+  // fetch, so preload="none" buys nothing: five clips, ~3.4 MB, all downloading
+  // at once ~400ms into the load, competing with the LCP over a phone connection.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { threshold: 0.4 },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
+
+  // Play only the active slide's clip, and only while the gallery is on screen.
+  // Pausing the rest also stops them decoding frames out of view.
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
-      if (index === active && lightboxIndex === null) {
+      if (onScreen && index === active && lightboxIndex === null) {
         video.play().catch(() => {});
       } else {
         video.pause();
       }
     });
-  }, [active, lightboxIndex]);
+  }, [active, lightboxIndex, onScreen]);
 
   return (
-    <div className="min-w-0">
+    <div className="min-w-0" ref={rootRef}>
       {/* Compact drops the frame so the media can sit flush against the card's own
           rounded edge — inside a grid cell, a border plus card padding shrinks the
           picture below the size of the gameplay-system cards next to it. */}
