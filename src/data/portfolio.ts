@@ -441,11 +441,13 @@ export interface GameSystem {
   tags: string[];
   linkedinUrl?: string; // link to the LinkedIn post; button hidden when empty/absent
   /**
-   * Deep link into the system's own folder in the published repo, where its README
-   * is what GitHub renders. Always /tree/HEAD/<folder>, never /tree/main/: HEAD
-   * resolves to whatever the default branch is called, so renaming it later does
-   * not rot every link here. Button hidden when empty/absent — the Unreal systems
-   * and the ListOf20 board are not in that repo.
+   * Deep link into the system's own folder in its published repo. The Unity systems
+   * live in unity-gameplay-systems-memora, one numbered folder each with its own
+   * README; the Unreal ones live in unreal-horror-systems, which is a whole UE
+   * project, so they point at their module folder under Source/ instead. Always
+   * /tree/HEAD/<folder>, never /tree/main/: HEAD resolves to whatever the default
+   * branch is called, so renaming it later does not rot every link here. Button
+   * hidden when empty/absent — the ListOf20 board has no public repo.
    */
   githubUrl?: string;
   engine: EngineKey;
@@ -644,6 +646,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/grid-inventory.jpg",
     video: "/systems/grid-inventory.mp4",
     tags: ["C++", "UE5", "Gameplay"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unreal-horror-systems/tree/HEAD/Source/FPHorrorSystems/Inventory",
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-ugcPost-7482871303042150401-wwiF",
     engine: "unreal",
@@ -661,6 +665,8 @@ export const gameSystems: GameSystem[] = [
     poster: "/systems/object-inspection.jpg",
     video: "/systems/object-inspection.mp4",
     tags: ["C++", "UE5", "Gameplay"],
+    githubUrl:
+      "https://github.com/FrancoLeoneDev/unreal-horror-systems/tree/HEAD/Source/FPHorrorSystems/Inspection",
     linkedinUrl:
       "https://www.linkedin.com/posts/franco-leone-294511242_unrealengine-ue5-gamedev-activity-7453919156778725376-Z6mx",
     engine: "unreal",
