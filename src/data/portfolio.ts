@@ -634,6 +634,53 @@ export const gameSystems: GameSystem[] = [
     engine: "unity",
   },
   {
+    id: "third-person-shooting",
+    title: {
+      en: "Third-Person Shooting System",
+      es: "Sistema de Disparo en Tercera Persona",
+    },
+    description: {
+      en: "Over-the-shoulder survival-horror shooting in Unreal Engine 5.8 (C++), on GAS: aim, fire, reload, and the infected drops into ragdoll. The shot does not trace when the ability activates — it waits for the montage notify that marks the frame the bullet leaves the barrel, so the shot and the arm agree instead of the enemy falling before the gun has finished coming up. It traces from the camera while the muzzle flash comes from the weapon, and the two disagreeing is the illusion: the reticle sits at the centre of the screen, and a shot genuinely leaving the barrel would miss whatever the reticle covers. Aim assist scores by angle from centre rather than by proximity, and corrects before the spread is applied — never after, or the weapon's cone stops meaning anything.",
+      es: "Disparo en tercera persona con cámara al hombro, estilo survival horror, en Unreal Engine 5.8 (C++) sobre GAS: apuntar, disparar, recargar, y el infectado cae en ragdoll. El disparo no traza cuando se activa la ability — espera al notify del montage que marca el frame en que la bala deja el caño, así el tiro y el brazo coinciden en vez de que el enemigo caiga antes de que el arma termine de levantarse. Traza desde la cámara mientras el fogonazo sale de la boca del arma, y que los dos no coincidan es la ilusión: la mira está en el centro de la pantalla, y un disparo que saliera realmente del caño erraría lo que la retícula cubre. La asistencia de puntería puntúa por ángulo respecto del centro y no por cercanía, y corrige antes de aplicar la dispersión — nunca después, o el cono del arma deja de significar nada.",
+    },
+    poster: "/systems/third-person-shooting.jpg",
+    video: "/systems/third-person-shooting.mp4",
+    tags: [
+      "C++",
+      "GAS",
+      "Gameplay Cues",
+      "Gameplay Tags",
+      "Enhanced Input",
+      "Anim Notifies",
+      "Automation Tests",
+    ],
+    engine: "unreal",
+  },
+  {
+    id: "localized-damage",
+    title: {
+      en: "Localized Damage System",
+      es: "Sistema de Daño Localizado",
+    },
+    description: {
+      en: "Localized damage and dismemberment in Unreal Engine 5.8 (C++), on GAS: the shot traces against the enemy's physics asset, so the bone it actually struck is what picks the damage multiplier and the reaction — and past a per-zone threshold the head, an arm or a leg comes off, bones hidden, a cap plugged into the surviving socket and the blood jet parented to it so it follows the body as it falls. The impact plays no animation at all. It is an impulse at the struck bone driven through PhysicsControl on top of whatever the enemy was already doing, and the drive gets weaker at the moment of contact — a fifth of its strength, climbing back over the next second — because a strong drive is a rigid body, and a rigid body has nowhere to put a bullet. Two shots twenty centimetres apart produce two different reactions.",
+      es: "Daño localizado y desmembramiento en Unreal Engine 5.8 (C++), sobre GAS: el disparo traza contra el physics asset del enemigo, así que el hueso que realmente impactó es el que elige el multiplicador de daño y la reacción — y pasado un umbral por zona, la cabeza, un brazo o una pierna se desprenden, con los huesos ocultos, un tapón encastrado en el socket que sobrevive y el chorro de sangre parentado a él para que acompañe al cuerpo mientras cae. El impacto no reproduce ninguna animación. Es un impulso en el hueso golpeado, conducido por PhysicsControl encima de lo que el enemigo ya estaba haciendo, y el drive se vuelve más débil en el momento del contacto — un quinto de su fuerza, recuperándose durante el segundo siguiente — porque un drive fuerte es un cuerpo rígido, y un cuerpo rígido no tiene dónde meter la bala. Dos tiros separados por veinte centímetros producen dos reacciones distintas.",
+    },
+    poster: "/systems/localized-damage.jpg",
+    video: "/systems/localized-damage.mp4",
+    tags: [
+      "C++",
+      "GAS",
+      "Gameplay Cues",
+      "Physics Control",
+      "Physics Assets",
+      "Niagara",
+      "Ragdoll",
+      "Automation Tests",
+    ],
+    engine: "unreal",
+  },
+  {
     id: "grid-inventory",
     title: {
       en: "Grid Inventory System",
@@ -645,7 +692,7 @@ export const gameSystems: GameSystem[] = [
     },
     poster: "/systems/grid-inventory.jpg",
     video: "/systems/grid-inventory.mp4",
-    tags: ["C++", "UE5", "Gameplay"],
+    tags: ["C++", "Gameplay"],
     githubUrl:
       "https://github.com/FrancoLeoneDev/unreal-horror-systems/tree/HEAD/Source/FPHorrorSystems/Inventory",
     linkedinUrl:
@@ -664,7 +711,7 @@ export const gameSystems: GameSystem[] = [
     },
     poster: "/systems/object-inspection.jpg",
     video: "/systems/object-inspection.mp4",
-    tags: ["C++", "UE5", "Gameplay"],
+    tags: ["C++", "Gameplay"],
     githubUrl:
       "https://github.com/FrancoLeoneDev/unreal-horror-systems/tree/HEAD/Source/FPHorrorSystems/Inspection",
     linkedinUrl:
